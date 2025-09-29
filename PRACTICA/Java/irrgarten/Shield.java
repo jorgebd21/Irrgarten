@@ -17,4 +17,8 @@ public class Shield {
         }
         return aux;
     }
+
+    public String toString(){
+        return "S["+protection+","+uses+"]";
+    }
 }
