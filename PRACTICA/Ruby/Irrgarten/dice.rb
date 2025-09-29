@@ -9,57 +9,59 @@ class Dice
     MAX_ATTACKS = 3
     MAX_SHIELDS = 2
 
-    generator = Random.new()
-
-    def random_pos(max)
-        return generator.rand(max)
+    def initialize
+        @generator = Random.new
     end
 
-    def who_starts(int nplayers)
-        return generator.rand(nplayers)
+    def random_pos(max)
+        return @generator.rand(max)
+    end
+
+    def who_starts(nplayers)
+        return @generator.rand(nplayers)
     end
 
     def random_intelligence()
-        return generator.rand(MAX_INTELLIGENCE)
+        return @generator.rand(MAX_INTELLIGENCE)
     end
 
     def random_strength()
-        return generator.rand(MAX_STRENGTH)
+        return @generator.rand(MAX_STRENGTH)
     end
 
     def resurrect_player()
-        return generator.rand() < RESURRECT_PROB
+        return @generator.rand() < RESURRECT_PROB
     end
 
     def weapon_reward()
-        return generator.rand(WEAPONS_REWARD)
+        return @generator.rand(WEAPONS_REWARD)
     end
 
     def shield_reward()
-        return generator.rand(SHIELDS_REWARD)
+        return @generator.rand(SHIELDS_REWARD)
     end
 
     def health_reward()
-        return generator.rand(HEALTH_REWARD)
+        return @generator.rand(HEALTH_REWARD)
     end
 
     def weapon_power()
-        return generator.rand(MAX_ATTACKS)
+        return @generator.rand(MAX_ATTACKS)
     end
 
     def shield_power()
-        return generator.rand(MAX_SHIELDS)
+        return @generator.rand(MAX_SHIELDS)
     end
 
     def uses_left()
-        return generator.rand(MAX_USES)
+        return @generator.rand(MAX_USES)
     end
 
     def intensity(competence)
-        return generator.rand(competence)
+        return @generator.rand(competence)
     end
 
-    def discard_element(int uses_left)
-        return generator.rand() < 1.0 - (uses_left/MAX_USES)
+    def discard_element(uses_left)
+        return @generator.rand(1.0) < 1.0 - (uses_left/MAX_USES)
     end
 end

@@ -1,3 +1,11 @@
+require_relative 'orientation'
+require_relative 'game_character'
+require_relative 'directions'
+require_relative 'dice'
+require_relative 'weapon'
+require_relative 'shield'
+
+
 puts "Prueba P1\nArmas y Escudos"
 
 w = Weapon.new(10, 5)
@@ -19,17 +27,18 @@ puts Directions::DOWN
 
 puts "\nTiradas"
 100.times do
-    puts Dice.random_pos(10)
-    puts Dice.who_starts(4)
-    puts Dice.random_intelligence
-    puts Dice.random_strength
-    puts Dice.resurrect_player
-    puts Dice.weapon_reward
-    puts Dice.shield_reward
-    puts Dice.health_reward
-    puts Dice.weapon_power
-    puts Dice.shield_power
-    puts Dice.uses_left
-    puts Dice.intensity(5)
-    puts Dice.discard_element(3)
+    dice = Dice.new
+    puts dice.random_pos(10)
+    puts dice.who_starts(4)
+    puts dice.random_intelligence
+    puts dice.random_strength
+    puts dice.resurrect_player
+    puts dice.weapon_reward
+    puts dice.shield_reward
+    puts dice.health_reward
+    puts dice.weapon_power
+    puts dice.shield_power
+    puts dice.uses_left
+    puts dice.intensity(5)
+    puts dice.discard_element(3)
 end

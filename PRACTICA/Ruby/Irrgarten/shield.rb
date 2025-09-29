@@ -13,10 +13,12 @@ class Shield
         if @uses > 0
             use = @protection
             @uses -= 1
+        end
         return use
     end
 
     def discard()
-        return Dice.discard_element(@uses)
+        dice = Dice.new()
+        return dice.discard_element(@uses)
     end
 end
