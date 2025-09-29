@@ -12,8 +12,8 @@ public class Shield {
     public float protect(){
         float aux = 0; // Aux es una variable auxiliar para hacer solo un return estableciendolo a 0 como valor base
         if (uses > 0) {
-            uses--;
             aux = protection;
+            uses--;
         }
         return aux;
     }
