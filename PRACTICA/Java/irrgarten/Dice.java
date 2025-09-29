@@ -15,7 +15,7 @@ public class Dice {
 
     static private Random generator = new Random();
 
-    public int randomPos(int max){
+    static public int randomPos(int max){
         return generator.nextInt(max);
     }
 }
