@@ -18,4 +18,46 @@ public class Dice {
     static public int randomPos(int max){
         return generator.nextInt(max);
     }
+
+    static public int whoStarts(int nplayers){
+        return generator.nextInt(nplayers);
+    }
+
+    static public float randomIntelligence(){
+        return generator.nextFloat(MAX_INTELLIGENCE);
+    }
+    static public float randomStrength(){
+        return generator.nextFloat(MAX_STRENGTH);
+    }
+
+    static public boolean resurrectPlayer(){
+        return generator.nextFloat(1) < RESURRECT_PROB;
+    }
+
+    static public int weaponsReward(){
+        return generator.nextInt(WEAPON_REWARD);
+    }
+    static public int shieldsReward(){
+        return generator.nextInt(SHIELD_REWARD);
+    }
+    static public int healthReward(){
+        return generator.nextInt(HEALTH_REWARD);
+    }
+
+    static public float weaponPower(){
+        return generator.nextFloat(MAX_ATTACKS);
+    }
+    static public float shieldPower(){
+        return generator.nextFloat(MAX_SHIELD);
+    }
+    static public int usesLeft(){
+        return generator.nextInt(MAX_USES);
+    }
+
+    static public float intensity(float competence){
+        return generator.nextFloat(competence);
+    }
+    static public boolean discardElement(int usesLeft){
+        return generator.nextFloat(1) < 1.0f-(usesLeft/MAX_USES);
+    }
 }
