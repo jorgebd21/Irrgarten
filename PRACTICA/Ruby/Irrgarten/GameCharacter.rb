@@ -1,4 +1,4 @@
 module GameCharacter
     PLAYER = :player
-    MINOTAUR = :minotaur
+    MONSTER = :monster
 end
