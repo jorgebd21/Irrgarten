@@ -21,4 +21,8 @@ public class Shield {
     public String toString(){
         return "S["+protection+","+uses+"]";
     }
+    
+    public boolean discard(){
+        return Dice.discardElement(uses);
+    }
 }

@@ -24,14 +24,14 @@ public class Dice {
     }
 
     static public float randomIntelligence(){
-        return generator.nextFloat(MAX_INTELLIGENCE);
+        return generator.nextFloat()*MAX_INTELLIGENCE;
     }
     static public float randomStrength(){
-        return generator.nextFloat(MAX_STRENGTH);
+        return generator.nextFloat()*MAX_STRENGTH;
     }
 
     static public boolean resurrectPlayer(){
-        return generator.nextFloat(1) < RESURRECT_PROB;
+        return generator.nextFloat() < RESURRECT_PROB;
     }
 
     static public int weaponsReward(){
@@ -45,19 +45,19 @@ public class Dice {
     }
 
     static public float weaponPower(){
-        return generator.nextFloat(MAX_ATTACKS);
+        return generator.nextFloat()*MAX_ATTACKS;
     }
     static public float shieldPower(){
-        return generator.nextFloat(MAX_SHIELD);
+        return generator.nextFloat()*MAX_SHIELD;
     }
     static public int usesLeft(){
         return generator.nextInt(MAX_USES);
     }
 
     static public float intensity(float competence){
-        return generator.nextFloat(competence);
+        return generator.nextFloat()*competence;
     }
     static public boolean discardElement(int usesLeft){
-        return generator.nextFloat(1) < 1.0f-(usesLeft/MAX_USES);
+        return generator.nextFloat() < 1.0f - (usesLeft/MAX_USES);
     }
 }
