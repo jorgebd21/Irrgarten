@@ -1,4 +1,4 @@
-package PRACTICA.Java.irrgarten;
+package irrgarten;
 
 public enum Orientation {
     VERTICAL, HORIZONTAL
