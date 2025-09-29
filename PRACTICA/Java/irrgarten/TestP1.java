@@ -33,6 +33,7 @@ public class TestP1 {
 
         //Prueba Dice
         for(int i=0;i<100;i++){
+            System.out.println("\n -----Prueba Dice " + i + "-----");
             System.out.println("Posición random (máx 10): " + Dice.randomPos(10));
             System.out.println("Quién empieza (10 jugadores): " + Dice.whoStarts(10));
             System.out.println("Inteligencia random: " + Dice.randomIntelligence());
@@ -47,7 +48,7 @@ public class TestP1 {
             float competence = 7.5f;
             System.out.println("Intensidad con competencia " + competence + ": " + Dice.intensity(competence));
             int usesLeft = 3;
-            System.out.println("¿Descartar elemento con " + usesLeft + " usos restantes? " + Dice.discardElement(usesLeft));
+            System.out.println("¿Descartar elemento con " + usesLeft + " usos restantes? " + Dice.discardElement(usesLeft) + "\n");
         }
     }
 }
