@@ -26,8 +26,8 @@ puts Game_character::PLAYER
 puts Directions::DOWN
 
 puts "\nTiradas"
+dice = Dice.new
 100.times do
-    dice = Dice.new
     puts dice.random_pos(10)
     puts dice.who_starts(4)
     puts dice.random_intelligence
