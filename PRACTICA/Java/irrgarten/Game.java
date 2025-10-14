@@ -5,6 +5,10 @@ public class Game {
     private int currentPlayerIndex;
     private String log;
 
+    private Player[] players;
+    private Labyrinth labyrinth;
+    private Monster[] monsters;
+
     public Game(int nplayers){
 
     }

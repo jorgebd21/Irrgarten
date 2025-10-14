@@ -15,6 +15,9 @@ public class Player {
     private int col;
     private int consecutiveHits;
 
+    private Weapon[] weapons;
+    private Shield[] shields;
+
     public Player(char number, float intelligence, float strength) {
 
     }

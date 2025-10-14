@@ -14,6 +14,10 @@ public class Labyrinth {
     private int exitRow;
     private int exitCol;
 
+    private PlayerSquare[][] playerSquares;
+    private MonsterSquare[][] monsterSquares;
+    private LabyrinthSquare[][] labyrinthSquares;
+
     public Labyrinth(int nRows, int nCols) {
 
     }
