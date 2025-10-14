@@ -2,6 +2,7 @@ package irrgarten;
 
 public class Monster {
     static private int INITIAL_HEALTH = 5;
+    static private int INITIAL_POS = -1;
     private String name;
     private float intelligence;
     private float strength;
@@ -14,23 +15,28 @@ public class Monster {
         this.intelligence = intelligence;
         this.strength = strength;
         this.health = INITIAL_HEALTH;
+        this.row = INITIAL_POS;
+        this.col = INITIAL_POS;
     }
     public boolean dead(){
-        throw new UnsupportedOperationException();
+        return health < 0;
     }
     public float attack(){
-        throw new UnsupportedOperationException();
+        return Dice.intensity(strength);
     }
     public boolean defend(float receivedAttack){
         throw new UnsupportedOperationException();
     }
     public void setPos(int row, int col){
-        
+        assert row >= 0 && col >= 0;
+        this.row = row;
+        this.col = col;
     }
     public String toString(){
-        throw new UnsupportedOperationException();
+        return "Monster: " + name + " (I:" + intelligence + ", S:" + strength + ", H:" + health + ") in (" + row + "," + col + ")";
     }
+    // Se usa en defend en la practica 3
     private void gotWounded(){
-
+        health--;
     }
 }
