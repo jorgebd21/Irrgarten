@@ -9,13 +9,13 @@ public class Game {
 
     }
     public boolean finished(){
-
+        throw new UnsupportedOperationException();
     }
     public boolean nextStep(Directions preferredDirections){
-
+        throw new UnsupportedOperationException();
     }
     public GameState getGameState(){
-
+        throw new UnsupportedOperationException();
     }
     private void configureLabyrinth(){
 
@@ -24,10 +24,10 @@ public class Game {
 
     }
     private Directions actualDirection(Directions preferredDirection){
-
+        throw new UnsupportedOperationException();
     }
     private GameState combat(Monster monster){
-
+        throw new UnsupportedOperationException();
     }
     private void manageReward(GameState winner){
 

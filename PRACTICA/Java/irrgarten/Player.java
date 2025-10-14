@@ -32,26 +32,26 @@ public class Player {
     public char getNumber() {
         return number;
     }
-    public setPos(int row, int col) {
+    public void setPos(int row, int col) {
 
     }
     public boolean dead() {
-
+        throw new UnsupportedOperationException();
     }
     public Directions move(Directions direction, Directions[] validMoves){
-
+        throw new UnsupportedOperationException();
     }
     public float attack(){
-
+        throw new UnsupportedOperationException();
     }
     public boolean defend(float receivedAttack){
-
+        throw new UnsupportedOperationException();
     }
     public void receivedReward(){
 
     }
     public String toString(){
-
+        throw new UnsupportedOperationException();
     }
 
     private void receiveWeapon(Weapon w){
@@ -61,22 +61,22 @@ public class Player {
 
     }
     private Weapon newWeapon(){
-        
+        throw new UnsupportedOperationException();
     }
     private Shield newShield(){
-
+        throw new UnsupportedOperationException();
     }
     private float sumWeapons(){
-
+        throw new UnsupportedOperationException();
     }
     private float sumShields(){
-
+        throw new UnsupportedOperationException();
     }
     private float defensiveEnergy(){
-
+        throw new UnsupportedOperationException();
     }
     private boolean manageHit(float receivedAttack){
-
+        throw new UnsupportedOperationException();
     }
     private void resetHits(){
         

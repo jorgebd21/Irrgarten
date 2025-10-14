@@ -16,21 +16,21 @@ public class Monster {
         this.health = INITIAL_HEALTH;
     }
     public boolean dead(){
-
+        throw new UnsupportedOperationException();
     }
     public float attack(){
-
+        throw new UnsupportedOperationException();
     }
     public boolean defend(float receivedAttack){
-
+        throw new UnsupportedOperationException();
     }
     public void setPos(int row, int col){
         
     }
     public String toString(){
-
+        throw new UnsupportedOperationException();
     }
     private void gotWounded(){
-        
+
     }
 }
