@@ -23,11 +23,11 @@ public class Labyrinth {
     private ArrayList<Player> players;
     private ArrayList<Monster> monsters;
 
-    public Labyrinth(int nRows, int nCols) {
+    public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
         this.nRows = nRows;
         this.nCols = nCols;
-        this.exitRow = -1;
-        this.exitCol = -1;
+        this.exitRow = exitRow;
+        this.exitCol = exitCol;
 
         this.playerSquares = new PlayerSquare[nRows][nCols];
         this.monsterSquares = new MonsterSquare[nRows][nCols];
@@ -46,18 +46,21 @@ public class Labyrinth {
         String salida = "";
         for(int r=0; r<nRows; r++){
             for(int c=0; c<nCols; c++){
-                salida = salida + labyrinthSquares[r][c].toString();
-                salida = salida + playerSquares[r][c].toString();
-                salida = salida + monsterSquares[r][c].toString();
+                salida += labyrinthSquares[r][c].toString();
+                salida += playerSquares[r][c].toString();
+                salida += monsterSquares[r][c].toString();
             }
-            salida = salida + "\n";
+            salida += "\n";
         }
         return salida;
     }
     public void addMonster(int row, int col, Monster monster){
-        assert posOK(row, col) : "Invalid position";
-        assert emptyPos(row, col) : "Position not empty";
-        monsterSquares[row][col] = new MonsterSquare();
+        if(posOK(row, col) && emptyPos(row, col)){
+            labyrinthSquares[row][col] = new LabyrinthSquare(row, col, MONSTER_CHAR, this);
+            monsterSquares[row][col] = new MonsterSquare(row, col, monster);
+            monsters.add(monster);
+            monster.setPos(row, col);
+        }
     }
     public Monster putPlayer(Directions direction, Player player){
         throw new UnsupportedOperationException();
@@ -69,31 +72,69 @@ public class Labyrinth {
         throw new UnsupportedOperationException();
     }
     private boolean posOK(int row, int col){
-        throw new UnsupportedOperationException();
+        return (row>=0) && (row<nRows) && (col>=0) && (col<nCols);
     }
     private boolean emptyPos(int row, int col){
-        throw new UnsupportedOperationException();
+        return (playerSquares[row][col]==null) && (labyrinthSquares[row][col].getContent()==EMPTY_CHAR);
     }
     private boolean monsterPos(int row, int col){
-        throw new UnsupportedOperationException();
+        return (monsterSquares[row][col]!=null) && (playerSquares[row][col]==null);
     }
     private boolean exitPos(int row, int col){
-        throw new UnsupportedOperationException();
+        return (row==exitRow) && (col==exitCol);
     }
     private boolean combatPos(int row, int col){
-        throw new UnsupportedOperationException();
+        return (monsterSquares[row][col]!=null) && (playerSquares[row][col]!=null);
     }
     private boolean canStepOn(int row, int col){
-        throw new UnsupportedOperationException();
+        return (labyrinthSquares[row][col].getContent()!=BLOCK_CHAR) && (posOK(row, col));
     }
     private void updateOldPos(int row, int col){
-        
+        if(posOK(row, col)){
+            if(monsterPos(row, col)){
+                labyrinthSquares[row][col].setContent(MONSTER_CHAR);
+            } else if (exitPos(row, col)){
+                labyrinthSquares[row][col].setContent(EXIT_CHAR);
+            } else if (combatPos(row, col)){
+                labyrinthSquares[row][col].setContent(COMBAT_CHAR);
+            } else {
+                labyrinthSquares[row][col].setContent(EMPTY_CHAR);
+            }
+        }
     }
     private int[] dir2Pos(int row, int col, Directions direction){
-        throw new UnsupportedOperationException();
+        int[] newPos = new int[2];
+        newPos[ROW] = row;
+        newPos[COL] = col;
+        switch(direction){
+            case UP:
+                newPos[ROW] = row - 1;
+                break;
+            case DOWN:
+                newPos[ROW] = row + 1;
+                break;
+            case LEFT:
+                newPos[COL] = col - 1;
+                break;
+            case RIGHT:
+                newPos[COL] = col + 1;
+                break;
+        }
+        return newPos;
     }
     private int[] randomEmptyPos(){
-        throw new UnsupportedOperationException();
+        boolean found = false;
+        int [] pos = new int[2];
+        do{
+            int row = Dice.randomPos(nRows);
+            int col = Dice.randomPos(nCols);
+            if(emptyPos(row, col)){
+                pos[ROW] = row;
+                pos[COL] = col;
+                found = true;
+            }
+        }while(!found);
+        return  pos;
     }
     private Monster putPlayer2D(int oldRow, int oldCol, int row, int col){
         throw new UnsupportedOperationException();

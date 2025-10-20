@@ -12,4 +12,12 @@ public class LabyrinthSquare {
         this.content = content;
         this.labyrinth = labyrinth;
     }
+
+    public char getContent() {
+        return content;
+    }
+
+    public void setContent(char content) {
+        this.content = content;
+    }
 }
