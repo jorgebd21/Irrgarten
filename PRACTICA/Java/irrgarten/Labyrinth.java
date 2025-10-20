@@ -1,5 +1,7 @@
 package irrgarten;
 
+import java.util.ArrayList;
+
 public class Labyrinth {
     static private char BLOCK_CHAR = 'X';
     static private char EMPTY_CHAR = '-';
@@ -18,20 +20,44 @@ public class Labyrinth {
     private MonsterSquare[][] monsterSquares;
     private LabyrinthSquare[][] labyrinthSquares;
 
-    public Labyrinth(int nRows, int nCols) {
+    private ArrayList<Player> players;
+    private ArrayList<Monster> monsters;
 
+    public Labyrinth(int nRows, int nCols) {
+        this.nRows = nRows;
+        this.nCols = nCols;
+        this.exitRow = -1;
+        this.exitCol = -1;
+
+        this.playerSquares = new PlayerSquare[nRows][nCols];
+        this.monsterSquares = new MonsterSquare[nRows][nCols];
+        this.labyrinthSquares = new LabyrinthSquare[nRows][nCols];
+
+        this.players = new ArrayList<Player>();
+        this.monsters = new ArrayList<Monster>();
     }
     public void spreadPlayers(Player[] players){
         
     }
     public boolean haveAWinner(){
-        throw new UnsupportedOperationException();
+        return (playerSquares[exitRow][exitCol] != null);
     }
     public String toString(){
-        throw new UnsupportedOperationException();
+        String salida = "";
+        for(int r=0; r<nRows; r++){
+            for(int c=0; c<nCols; c++){
+                salida = salida + labyrinthSquares[r][c].toString();
+                salida = salida + playerSquares[r][c].toString();
+                salida = salida + monsterSquares[r][c].toString();
+            }
+            salida = salida + "\n";
+        }
+        return salida;
     }
     public void addMonster(int row, int col, Monster monster){
-        
+        assert posOK(row, col) : "Invalid position";
+        assert emptyPos(row, col) : "Position not empty";
+        monsterSquares[row][col] = new MonsterSquare();
     }
     public Monster putPlayer(Directions direction, Player player){
         throw new UnsupportedOperationException();

@@ -1,5 +1,7 @@
 package irrgarten;
 
+import java.util.ArrayList;
+
 public class Player {
     static private int MAX_WEAPONS = 2;
     static private int MAX_SHIELDS = 3;
@@ -15,8 +17,8 @@ public class Player {
     private int col;
     private int consecutiveHits;
 
-    private Weapon[] weapons;
-    private Shield[] shields;
+    private ArrayList<Weapon> weapons;
+    private ArrayList<Shield> shields;
 
     public Player(char number, float intelligence, float strength) {
         this.name = "Player #" + number;
@@ -25,13 +27,13 @@ public class Player {
         this.strength = strength;
         this.health = INITIAL_HEALTH;
         this.consecutiveHits = 0;
-        this.weapons = new Weapon[MAX_WEAPONS];
-        this.shields = new Shield[MAX_SHIELDS];
+        this.weapons = new ArrayList<Weapon>(MAX_WEAPONS);
+        this.shields = new ArrayList<Shield>(MAX_SHIELDS);
     }
 
     public void resurrect() {
-        weapons = new Weapon[MAX_WEAPONS];
-        shields = new Shield[MAX_SHIELDS];
+        weapons.clear();
+        shields.clear();
         health = INITIAL_HEALTH;
         consecutiveHits = 0;
     }
@@ -56,11 +58,7 @@ public class Player {
         throw new UnsupportedOperationException();
     }
     public float attack(){
-        float sum = strength;
-        for(int i=0; i<MAX_WEAPONS ; i++){
-            sum = weapons[i].attack();
-        }
-        return sum;
+        return sumWeapons() + strength;
     }
     public boolean defend(float receivedAttack){
         throw new UnsupportedOperationException();
@@ -69,7 +67,15 @@ public class Player {
 
     }
     public String toString(){
-        return name + " (HP: " + health + ", Pos: [" + row + "," + col + "], INT:" + intelligence + ", STR:" + strength + ")";
+        String wString = "";
+        String sString = "";
+        for(int i=0; i<weapons.size(); i++){
+            wString += weapons.get(i).toString() + " ";
+        }
+        for(int i=0; i<shields.size(); i++){
+            sString += shields.get(i).toString() + " ";
+        }
+        return name + " (HP: " + health + ", Pos: [" + row + "," + col + "], INT:" + intelligence + ", STR:" + strength + ") WEAPONS: " + wString + "SHIELDS: " + sString;
     }
 
     private void receiveWeapon(Weapon w){
@@ -87,14 +93,14 @@ public class Player {
     private float sumWeapons(){
         float sum = 0;
         for(int i=0; i<MAX_WEAPONS ; i++){
-            sum += weapons[i].attack();
+            sum += weapons.get(i).attack();
         }
         return sum;
     }
     private float sumShields(){
         float sum = 0;
         for(int i=0; i<MAX_SHIELDS ; i++){
-            sum += shields[i].protect();
+            sum += shields.get(i).protect();
         }
         return sum;
     }
