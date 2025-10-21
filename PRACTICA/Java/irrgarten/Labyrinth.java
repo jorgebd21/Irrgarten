@@ -87,7 +87,7 @@ public class Labyrinth {
         return (monsterSquares[row][col]!=null) && (playerSquares[row][col]!=null);
     }
     private boolean canStepOn(int row, int col){
-        return (labyrinthSquares[row][col].getContent()!=BLOCK_CHAR) && (posOK(row, col));
+        return (emptyPos(row, col) || monsterPos(row, col) || exitPos(row, col)) && (posOK(row, col));
     }
     private void updateOldPos(int row, int col){
         if(posOK(row, col)){
@@ -104,21 +104,27 @@ public class Labyrinth {
     }
     private int[] dir2Pos(int row, int col, Directions direction){
         int[] newPos = new int[2];
-        newPos[ROW] = row;
-        newPos[COL] = col;
+        int H=0, V=0;
+        newPos[0] = row;
+        newPos[1] = col;
         switch(direction){
             case UP:
-                newPos[ROW] = row - 1;
+                H= -1;
                 break;
             case DOWN:
-                newPos[ROW] = row + 1;
+                H= 1;
                 break;
             case LEFT:
-                newPos[COL] = col - 1;
+                V= -1;
                 break;
             case RIGHT:
-                newPos[COL] = col + 1;
+                V= 1;
                 break;
+        }
+        while(canStepOn(newPos[0]+H, newPos[1]+V)){
+            newPos[0] += H;
+            newPos[1] += V;
+            
         }
         return newPos;
     }
@@ -126,11 +132,9 @@ public class Labyrinth {
         boolean found = false;
         int [] pos = new int[2];
         do{
-            int row = Dice.randomPos(nRows);
-            int col = Dice.randomPos(nCols);
-            if(emptyPos(row, col)){
-                pos[ROW] = row;
-                pos[COL] = col;
+            pos[0] = Dice.randomPos(nRows);
+            pos[1] = Dice.randomPos(nCols);
+            if(emptyPos(pos[0], pos[1])){
                 found = true;
             }
         }while(!found);
