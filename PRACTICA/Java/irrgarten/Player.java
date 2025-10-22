@@ -31,6 +31,10 @@ public class Player {
         this.shields = new ArrayList<Shield>(MAX_SHIELDS);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void resurrect() {
         weapons.clear();
         shields.clear();

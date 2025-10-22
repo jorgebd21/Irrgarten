@@ -8,31 +8,31 @@ public class Game {
     private String log;
 
     private ArrayList<Player> players;
-    private ArrayList<Labyrinth> labyrinth;
+    private Labyrinth labyrinth;
     private ArrayList<Monster> monsters;
 
     public Game(int nplayers){
         this.currentPlayerIndex = nplayers-1;
         this.log = "";
         this.players = new ArrayList<Player>(nplayers);
-        this.labyrinth = new ArrayList<Labyrinth>();
+        this.labyrinth = new Labyrinth(10, 10, 9, 9);
         this.monsters = new ArrayList<Monster>();
         configureLabyrinth();
     }
     public boolean finished(){
-        throw new UnsupportedOperationException();
+        return labyrinth.haveAWinner();
     }
     public boolean nextStep(Directions preferredDirections){
         throw new UnsupportedOperationException();
     }
     public GameState getGameState(){
-        throw new UnsupportedOperationException();
+        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex, finished(), log);
     }
     private void configureLabyrinth(){
-
+        //Necesito completarlo
     }
     private void nextPlayer(){
-
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
     private Directions actualDirection(Directions preferredDirection){
         throw new UnsupportedOperationException();
@@ -47,24 +47,24 @@ public class Game {
 
     }
     private void logPlayerWon(){
-
+        log += players.get(currentPlayerIndex).getName() + " ha ganado el combate!\n";
     }
     private void logMonsterWon(){
-
+        log += "El monstruo ha ganado el combate!\n";
     }
-    private void Resurrected(){
-
+    private void logResurrected(){
+        log += players.get(currentPlayerIndex).getName() + " ha resucitado!\n";
     }
     private void logPlayerSkipTurn(){
-
+        log += players.get(currentPlayerIndex).getName() + " se salta el turno!\n";
     }
     private void logPlayerNoOrders(){
-
+        log += players.get(currentPlayerIndex).getName() + " no tiene ordenes!\n";
     }
     private void logNoMonster(){
-
+        log += "No hay monstruo en la nueva posicion!\n";
     }
     private void logRound(int round, int max){
-
+        log += "---- Ronda " + round + " de " + max + " ----\n";
     }
 }
