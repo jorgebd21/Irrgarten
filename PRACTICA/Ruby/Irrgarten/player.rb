@@ -39,6 +39,7 @@ class Player
     end
 
     def set_pos(row, col)
+        assert row >= 0 && col >= 0
         @row = row
         @col = col
     end
@@ -105,10 +106,10 @@ class Player
     end
 
     def got_wounded
-        @health--
+        @health-= 1
     end
 
     def in_consecutive_hits
-        return @consecutive_hits++
+        return @consecutive_hits+= 1
     end
 end

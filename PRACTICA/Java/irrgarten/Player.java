@@ -52,6 +52,7 @@ public class Player {
         return number;
     }
     public void setPos(int row, int col) {
+        assert row >= 0 && col >= 0;
         this.row = row;
         this.col = col;
     }
