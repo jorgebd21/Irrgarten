@@ -1,6 +1,6 @@
 class Monster
-    INITIAL_HEALTH = 5
-    INITIAL_POS = -1
+    @@INITIAL_HEALTH = 5
+    @@INITIAL_POS = -1
 
     def inicialize(name, intelligence, strength)
         @name = name
@@ -33,6 +33,7 @@ class Monster
         return "Monster: #{@name} (I: #{@intelligence}, S: #{@strength}, H: #{@health}) in (#{@row}, #{@col})"
     end
 
+    private
     def got_wounded
         @health -= 1
     end

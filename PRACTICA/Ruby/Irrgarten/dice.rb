@@ -1,13 +1,13 @@
 class Dice
-    MAX_USES = 5
-    MAX_INTELLIGENCE = 10.0
-    MAX_STRENGTH = 10.0
-    RESURRECT_PROB = 0.3
-    WEAPONS_REWARD = 2
-    SHIELDS_REWARD = 3
-    HEALTH_REWARD = 5
-    MAX_ATTACKS = 3
-    MAX_SHIELDS = 2
+    @@MAX_USES = 5
+    @@MAX_INTELLIGENCE = 10.0
+    @@MAX_STRENGTH = 10.0
+    @@RESURRECT_PROB = 0.3
+    @@WEAPONS_REWARD = 2
+    @@SHIELDS_REWARD = 3
+    @@HEALTH_REWARD = 5
+    @@MAX_ATTACKS = 3
+    @@MAX_SHIELDS = 2
 
     def initialize
         @@generator = Random.new

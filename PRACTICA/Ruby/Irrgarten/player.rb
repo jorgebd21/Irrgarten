@@ -1,8 +1,8 @@
 class Player
-    MAX_WEAPONS = 2
-    MAX_SHIELDS = 3
-    INITIAL_HEATH = 10
-    HITS2LOSE = 3
+    @@MAX_WEAPONS = 2
+    @@MAX_SHIELDS = 3
+    @@INITIAL_HEATH = 10
+    @@HITS2LOSE = 3
 
     def initialize(number, intelligence, strength)
         @name = "Player#{number}"
@@ -73,6 +73,7 @@ class Player
         return "Nombre: #{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapons_s + ", Escudos: #{@shields.size}: " + shield_s
     end
 
+    private
     def receive_weapon(weapon)
     end
 
