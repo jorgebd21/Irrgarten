@@ -6,11 +6,11 @@ class Labyrinth_square
         @labyrinth = labyrinth
     end
 
-    def getContent()
+    def get_content()
         @content
     end
 
-    def setContent(content)
+    def set_content(content)
         @content = content
     end
 end

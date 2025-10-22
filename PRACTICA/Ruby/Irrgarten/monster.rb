@@ -2,13 +2,13 @@ class Monster
     @@INITIAL_HEALTH = 5
     @@INITIAL_POS = -1
 
-    def inicialize(name, intelligence, strength)
+    def initialize(name, intelligence, strength)
         @name = name
         @intelligence = intelligence
         @strength = strength
-        @health = INITIAL_HEALTH
-        @row = INITIAL_POS
-        @col = INITIAL_POS
+        @health = @@INITIAL_HEALTH
+        @row = @@INITIAL_POS
+        @col = @@INITIAL_POS
     end
 
     def dead
@@ -17,14 +17,13 @@ class Monster
     
     def attack
         dice = Dice.new
-        return dice.intensity(strength)
+        return dice.intensity(@strength)
     end
 
     def defend(received_attack)
     end
 
     def set_pos(row, col)
-        assert row >= 0 && col >= 0
         @row = row
         @col = col
     end

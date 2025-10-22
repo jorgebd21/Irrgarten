@@ -2,31 +2,31 @@ class Game
     @@MAX_ROUNDS = 10
 
     def initialize(nplayers)
-        @current_player_index = nplayers-1
+        @current_player_index = nplayers - 1
         @log = ""
         @players = Array.new(nplayers)
-        @labyrinth = Labyrinth.new(10,10,9,9)
-        @monsters = Array.new()
-        configure_labyrinth()
+        @labyrinth = Labyrinth.new(10, 10, 9, 9)
+        @monsters = Array.new
+        configure_labyrinth
     end
 
     def finished
-        return @labyrinth.haveAWinner()
+        return @labyrinth.have_a_winner
     end
 
     def next_step(preferred_direction)
     end
 
     def get_game_state
-        return GameState.new(@labyrinth.to_s(), @players.to_s(), @monsters.to_s(), current_player_index, finished(), @log)
+        return GameState.new(@labyrinth.to_s, @players.to_s, @monsters.to_s, @current_player_index, finished, @log)
     end
 
     def configure_labyrinth
-        #Hace falta diseñarlo
+        # Hace falta diseñarlo
     end
 
     def next_player
-        @current_player_index = (@current_player_index + 1) % players.size()
+        @current_player_index = (@current_player_index + 1) % @players.size
     end
 
     def actual_direction(preferred_direction)
@@ -42,30 +42,30 @@ class Game
     end
 
     def log_player_won
-        log += "Player #" + player.get(current_player_index.getName()) + " ha ganado el combate!\n"
+        @log += "Player ##{@players[@current_player_index].get_name} ha ganado el combate!\n"
     end
 
     def log_monster_won
-        log += "El monstruo ha ganado el combate!\n"
+        @log += "El monstruo ha ganado el combate!\n"
     end
 
     def log_player_resurrected
-        log += "Player #" + player.get(current_player_index.getName()) + " ha resucitado!\n"
+        @log += "Player ##{@players[@current_player_index].get_name} ha resucitado!\n"
     end
 
     def log_player_skip_turn
-        log += "Player #" + player.get(current_player_index.getName()) + " se salta el turno!\n"
+        @log += "Player ##{@players[@current_player_index].get_name} se salta el turno!\n"
     end
 
     def log_player_no_orders
-        log += "Player #" + player.get(current_player_index.getName()) + " no tiene ordenes!\n"
+        @log += "Player ##{@players[@current_player_index].get_name} no tiene órdenes!\n"
     end
 
     def log_no_monsters
-        log += "No hay monstruos en la nueva posicion!\n"
+        @log += "No hay monstruos en la nueva posición!\n"
     end
 
     def log_round(round, max)
-        log += "---- Ronda " + round.to_s() + " de " + max.to_s() + " ----\n"
+        @log += "---- Ronda #{round} de #{max} ----\n"
     end
 end

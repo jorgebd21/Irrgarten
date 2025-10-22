@@ -1,15 +1,15 @@
 class Player
     @@MAX_WEAPONS = 2
     @@MAX_SHIELDS = 3
-    @@INITIAL_HEATH = 10
+    @@INITIAL_HEALTH = 10
     @@HITS2LOSE = 3
 
     def initialize(number, intelligence, strength)
-        @name = "Player#{number}"
+        @name = "Player #" + number.to_s
         @number = number
         @intelligence = intelligence
         @strength = strength
-        @health = INITIAL_HEATH
+        @health = @@INITIAL_HEALTH
         @consecutive_hits = 0
         @weapons = Array.new
         @shields = Array.new
@@ -22,7 +22,7 @@ class Player
     def resurrect
         @weapons.clear
         @shields.clear
-        @health = INITIAL_HEATH
+        @health = @@INITIAL_HEALTH
         @consecutive_hits = 0
     end
 
@@ -39,7 +39,6 @@ class Player
     end
 
     def set_pos(row, col)
-        assert row >= 0 && col >= 0
         @row = row
         @col = col
     end
@@ -70,7 +69,7 @@ class Player
         for shield in @shields
             shield_s += shield.to_s
         end
-        return "Nombre: #{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapons_s + ", Escudos: #{@shields.size}: " + shield_s
+        return "Nombre: #{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapon_s + ", Escudos: #{@shields.size}: " + shield_s
     end
 
     private
@@ -107,10 +106,10 @@ class Player
     end
 
     def got_wounded
-        @health-= 1
+        @health -= 1
     end
 
     def in_consecutive_hits
-        return @consecutive_hits+= 1
+        return @consecutive_hits += 1
     end
 end
