@@ -72,6 +72,22 @@ class Player
         return "Nombre: #{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapon_s + ", Escudos: #{@shields.size}: " + shield_s
     end
 
+    def newWeapon()
+        dice = Dice.new
+        weapon = Weapon.new(dice.weapon_power(), dice.uses_left())
+        if @weapons.size < @@MAX_WEAPONS
+            weapons.push(weapon)
+        end
+    end
+
+    def newShield()
+        dice = Dice.new
+        shield = Shield.new(dice.shield_power(), dice.uses_left())
+        if @shields.size < @@MAX_SHIELDS
+            shields.push(shield)
+        end
+    end
+    
     private
     def receive_weapon(weapon)
     end
