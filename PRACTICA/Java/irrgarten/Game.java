@@ -35,7 +35,11 @@ public class Game {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
     private Directions actualDirection(Directions preferredDirection){
-        throw new UnsupportedOperationException();
+        int currentRow = players.get(currentPlayerIndex).getRow();
+        int currentCol = players.get(currentPlayerIndex).getCol();
+        Directions[] validMoves = labyrinth.validMoves(currentRow, currentCol);
+        Directions output = players.get(currentPlayerIndex).move(preferredDirection, validMoves);
+        return output;
     }
     private GameState combat(Monster monster){
         throw new UnsupportedOperationException();
