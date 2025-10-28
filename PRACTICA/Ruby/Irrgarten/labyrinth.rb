@@ -43,7 +43,7 @@ class Labyrinth
 
     def add_monster(row, col, monster)
         if pos_ok(row, col) && empty_pos(row, col)
-            @labyrinth_square[row][col] = LabyrinthSquare.new(row, col, @@MONSTER_CHAR, self)
+            @labyrinth_square[row][col] = LabyrinthSquare.new(row, col, @@MONSTER_CHAR)
             @monster_square[row][col] = MonsterSquare.new(row, col, monster)
             @monsters.push(monster)
             monster.set_pos(row, col)

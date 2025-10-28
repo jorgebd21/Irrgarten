@@ -1,9 +1,8 @@
 class Labyrinth_square
-    def initialize(row, col, content, labyrinth)
+    def initialize(row, col, content)
         @row = row
         @col = col
         @content = content
-        @labyrinth = labyrinth
     end
 
     def get_content()

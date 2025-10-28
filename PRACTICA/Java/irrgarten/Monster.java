@@ -25,7 +25,15 @@ public class Monster {
         return Dice.intensity(strength);
     }
     public boolean defend(float receivedAttack){
-        throw new UnsupportedOperationException();
+        boolean isDead = dead();
+        if(!isDead){
+            float defensiveEnergy = Dice.intensity(intelligence);
+            if(defensiveEnergy < receivedAttack){
+                gotWounded();
+                dead();
+            }
+        }
+        return isDead;
     }
     public void setPos(int row, int col){
         assert row >= 0 && col >= 0;
@@ -35,7 +43,6 @@ public class Monster {
     public String toString(){
         return "Monster: " + name + " (I:" + intelligence + ", S:" + strength + ", H:" + health + ") in (" + row + "," + col + ")";
     }
-    // Se usa en defend en la practica 3
     private void gotWounded(){
         health--;
     }

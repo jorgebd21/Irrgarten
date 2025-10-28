@@ -59,17 +59,54 @@ public class Player {
     public boolean dead() {
         return health<0;
     }
-    public Directions move(Directions direction, Directions[] validMoves){
-        throw new UnsupportedOperationException();
+    public Directions move(Directions direction, ArrayList<Directions> validMoves){
+        int size = validMoves.size();
+        boolean contained = validMoves.contains(direction);
+        if((size > 0) && !contained){
+            return validMoves.get(0);
+        }else{
+            return direction;
+        }
     }
     public float attack(){
         return sumWeapons() + strength;
     }
     public boolean defend(float receivedAttack){
-        throw new UnsupportedOperationException();
+        manageHit(receivedAttack);
+        float defense = defensiveEnergy();
+
+        if(defense < receivedAttack){
+            gotWounded();
+            incConsecutiveHits();
+        }else{
+            resetHits();
+        }
+
+        boolean lose;
+        if(((consecutiveHits == HITS2LOSE) || dead())){
+            resetHits();
+            lose = true;
+        }else{
+            lose = false;
+        }
+
+        return lose;
     }
     public void receivedReward(){
+        int wReward = Dice.weaponsReward();
+        int sReward = Dice.shieldsReward();
 
+        for(int i=0; i<wReward; i++){
+            Weapon wnew = newWeapon();
+            receiveWeapon(wnew);
+        }
+        for(int i=0; i<sReward; i++){
+            Shield snew = newShield();
+            receiveShield(snew);
+        }
+
+        int extraHealth = Dice.healthReward();
+        health += extraHealth;
     }
     public String toString(){
         String wString = "";
@@ -84,10 +121,32 @@ public class Player {
     }
 
     private void receiveWeapon(Weapon w){
+        for(int i=0; i<weapons.size(); i++){
+            Weapon wi = weapons.get(i);
+            boolean discard = wi.discard();
+            if(discard){
+                weapons.remove(wi);
+            }
+        }
 
+        int size = weapons.size();
+        if(size < MAX_WEAPONS){
+            weapons.add(w);
+        }
     }
     private void receiveShield(Shield s){
+        for(int i=0; i<shields.size(); i++){
+            Shield si = shields.get(i);
+            boolean discard = si.discard();
+            if(discard){
+                shields.remove(si);
+            }
+        }
 
+        int size = shields.size();
+        if(size < MAX_SHIELDS){
+            shields.add(s);
+        }
     }
     private Weapon newWeapon(){
         return new Weapon(Dice.weaponPower(), Dice.usesLeft());

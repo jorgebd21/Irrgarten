@@ -10,4 +10,8 @@ public class PlayerSquare {
         this.col = col;
         this.player = player;
     }
+
+    public Player getPlayer() {
+        return player;
+    }
 }

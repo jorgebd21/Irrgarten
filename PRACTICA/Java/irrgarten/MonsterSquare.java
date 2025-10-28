@@ -10,4 +10,8 @@ public class MonsterSquare {
         this.col = col;
         this.monster = monster;
     }
+
+    public Monster getMonster(){
+        return monster;
+    }
 }
