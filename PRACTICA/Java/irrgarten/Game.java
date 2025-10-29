@@ -13,12 +13,17 @@ public class Game {
     private Player currentPlayer;
 
     public Game(int nplayers){
-        this.currentPlayerIndex = nplayers-1;
+        this.currentPlayerIndex = 0;
         this.log = "";
         this.players = new ArrayList<Player>(nplayers);
-        this.labyrinth = new Labyrinth(10, 10, 9, 9);
         this.monsters = new ArrayList<Monster>();
-        this.currentPlayer = players.get(currentPlayerIndex);
+        this.labyrinth = new Labyrinth(10, 10, 9, 9);
+        for (int i = 0; i < nplayers; i++) {
+            char num = (char) (i + 1);
+            Player p = new Player(num, Dice.randomIntelligence(), Dice.randomStrength());
+            this.players.add(p);
+        }
+
         configureLabyrinth();
     }
     public boolean finished(){
@@ -59,10 +64,23 @@ public class Game {
         return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex, finished(), log);
     }
     private void configureLabyrinth(){
-        //Necesito completarlo
+        labyrinth.spreadPlayers(players.toArray(new Player[0]));
+
+        Monster m1 = new Monster("A", Dice.randomIntelligence(), Dice.randomStrength());
+        monsters.add(m1);
+        labyrinth.addMonster(2, 2, m1);
+
+        Monster m2 = new Monster("B", Dice.randomStrength(), Dice.randomIntelligence());
+        monsters.add(m2);
+        labyrinth.addMonster(4, 5, m2);
+
+        Monster m3 = new Monster("C", Dice.randomStrength(), Dice.randomIntelligence());
+        monsters.add(m3);
+        labyrinth.addMonster(6, 7, m3);
     }
     private void nextPlayer(){
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        currentPlayer = players.get(currentPlayerIndex);
     }
     private Directions actualDirection(Directions preferredDirection){
         int currentRow = currentPlayer.getRow();
@@ -130,7 +148,7 @@ public class Game {
         log += currentPlayer.getName() + " no tiene ordenes!\n";
     }
     private void logNoMonster(){
-        log += "No hay monstruo en la nueva posicion!\n";
+        log += "El jugador se ha movido a una celda vacia o no se ha podido mover\n";
     }
     private void logRound(int round, int max){
         log += "---- Ronda " + round + " de " + max + " ----\n";

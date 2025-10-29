@@ -41,7 +41,7 @@ public class Monster {
         this.col = col;
     }
     public String toString(){
-        return "Monster: " + name + " (I:" + intelligence + ", S:" + strength + ", H:" + health + ") in (" + row + "," + col + ")";
+        return "Monster: " + name + " (I:" + intelligence + ", S:" + strength + ", H:" + health + ") in (" + row + "," + col + ")" + "\n";
     }
     private void gotWounded(){
         health--;

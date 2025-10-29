@@ -30,6 +30,12 @@ public class Labyrinth {
         this.players = new PlayerSquare[nRows][nCols];
         this.monsters = new MonsterSquare[nRows][nCols];
         this.labyrinth = new LabyrinthSquare[nRows][nCols];
+        for (int r = 0; r < nRows; r++) {
+            for (int c = 0; c < nCols; c++) {
+                this.labyrinth[r][c] = new LabyrinthSquare(r, c, EMPTY_CHAR);
+            }
+        }
+        this.labyrinth[exitRow][exitCol] = new LabyrinthSquare(exitRow, exitCol, EXIT_CHAR);
     }
     public void spreadPlayers(Player[] player){
         for(int i=0; i<player.length; i++){
@@ -41,13 +47,16 @@ public class Labyrinth {
     public boolean haveAWinner(){
         return (players[exitRow][exitCol] != null);
     }
+    @Override
     public String toString(){
         String salida = "";
         for(int r=0; r<nRows; r++){
             for(int c=0; c<nCols; c++){
-                salida += labyrinth[r][c].toString();
-                salida += players[r][c].toString();
-                salida += monsters[r][c].toString();
+                if(players[r][c] != null){
+                    salida += players[r][c].toString();
+                }else{
+                    salida += labyrinth[r][c].getContent();
+                }
             }
             salida += "\n";
         }

@@ -17,7 +17,7 @@ public class GameState {
         this.log = log;
     }
 
-    public String getLaberinth() {
+    public String getLabyrinth() {
         return laberinth;
     }
     public String getPlayers() {

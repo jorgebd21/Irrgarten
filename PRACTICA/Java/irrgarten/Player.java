@@ -117,7 +117,7 @@ public class Player {
         for(int i=0; i<shields.size(); i++){
             sString += shields.get(i).toString() + " ";
         }
-        return name + " (HP: " + health + ", Pos: [" + row + "," + col + "], INT:" + intelligence + ", STR:" + strength + ") WEAPONS: " + wString + "SHIELDS: " + sString;
+        return name + " (HP: " + health + ", Pos: [" + row + "," + col + "], INT:" + intelligence + ", STR:" + strength + ") WEAPONS: " + wString + "SHIELDS: " + sString + "\n";
     }
 
     private void receiveWeapon(Weapon w){

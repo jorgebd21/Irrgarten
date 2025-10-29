@@ -1,9 +1,10 @@
 package irrgarten;
+import irrgarten.controller.Controller;
+import irrgarten.UI.TextUI;
 
 public class irrgarten {
     static public void main(String[] args) {
-        for(int i=0; i<10; i++  ){
-            System.out.println(Dice.randomPos(10));
-        }
+        Controller controller = new Controller(new Game(2), new TextUI());
+        controller.play();
     }
 }
