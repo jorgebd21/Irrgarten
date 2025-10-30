@@ -15,7 +15,6 @@ public class PlayerSquare {
         return player;
     }
 
-    @Override
     public String toString() {
         return player.getNumber() + "";
     }

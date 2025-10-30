@@ -21,14 +21,23 @@ public class Player {
     private ArrayList<Shield> shields;
 
     public Player(char number, float intelligence, float strength) {
-        this.name = "Player #" + number;
         this.number = number;
+        this.name = "Player #" + this.number;
         this.intelligence = intelligence;
         this.strength = strength;
         this.health = INITIAL_HEALTH;
         this.consecutiveHits = 0;
         this.weapons = new ArrayList<Weapon>(MAX_WEAPONS);
         this.shields = new ArrayList<Shield>(MAX_SHIELDS);
+
+        for(int i=0; i<MAX_WEAPONS; i++){
+            Weapon w = new Weapon(Dice.weaponPower(), Dice.usesLeft());
+            weapons.add(w);
+        }
+        for(int i=0; i<MAX_SHIELDS; i++){
+            Shield s = new Shield(Dice.shieldPower(), Dice.usesLeft());
+            shields.add(s);
+        }
     }
 
     public String getName() {

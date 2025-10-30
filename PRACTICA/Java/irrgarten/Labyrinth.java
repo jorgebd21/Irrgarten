@@ -124,7 +124,8 @@ public class Labyrinth {
         return (monsters[row][col]!=null) && (players[row][col]!=null);
     }
     private boolean canStepOn(int row, int col){
-        return (emptyPos(row, col) || monsterPos(row, col) || exitPos(row, col)) && (posOK(row, col));
+        if (!posOK(row, col)) return false;
+        return emptyPos(row, col) || monsterPos(row, col) || exitPos(row, col);
     }
     private void updateOldPos(int row, int col){
         if(posOK(row, col)){
@@ -146,16 +147,16 @@ public class Labyrinth {
         newPos[1] = col;
         switch(direction){
             case UP:
-                H= -1;
-                break;
-            case DOWN:
-                H= 1;
-                break;
-            case LEFT:
                 V= -1;
                 break;
-            case RIGHT:
+            case DOWN:
                 V= 1;
+                break;
+            case LEFT:
+                H= -1;
+                break;
+            case RIGHT:
+                H= 1;
                 break;
         }
         while(canStepOn(newPos[0]+H, newPos[1]+V)){

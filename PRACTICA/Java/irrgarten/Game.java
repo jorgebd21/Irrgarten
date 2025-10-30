@@ -19,10 +19,11 @@ public class Game {
         this.monsters = new ArrayList<Monster>();
         this.labyrinth = new Labyrinth(10, 10, 9, 9);
         for (int i = 0; i < nplayers; i++) {
-            char num = (char) (i + 1);
-            Player p = new Player(num, Dice.randomIntelligence(), Dice.randomStrength());
+            Player p = new Player((char)(i + '1'), Dice.randomIntelligence(), Dice.randomStrength());
+            System.out.println("Se ha creado" + p.getName());
             this.players.add(p);
         }
+        currentPlayer = players.get(currentPlayerIndex);
 
         configureLabyrinth();
     }
