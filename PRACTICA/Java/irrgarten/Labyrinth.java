@@ -73,7 +73,7 @@ public class Labyrinth {
         int oldRow = player.getRow();
         int oldCol = player.getCol();
         int[] newPos = dir2Pos(oldRow, oldCol, direction);
-        return putPlayer2D(oldRow, oldCol, newPos[ROW], newPos[COL], player);
+        return putPlayer2D(oldRow, oldCol, newPos[0], newPos[1], player);
     }
     public void addBlock(Orientation orientation, int startRow, int startCol, int length){
         int incRow, incCol;
@@ -97,14 +97,17 @@ public class Labyrinth {
     }
     public ArrayList<Directions> validMoves(int row, int col){
         ArrayList<Directions> output = new ArrayList<Directions>();
-        if(canStepOn(row+1, col)){
-            output.add(Directions.DOWN);
-        } else if (canStepOn(row-1, col)){
+        if(canStepOn(row-1, col)){
             output.add(Directions.UP);
-        } else if (canStepOn(row, col+1)){
-            output.add(Directions.RIGHT);
-        } else if (canStepOn(row, col-1)){
+        }
+        if (canStepOn(row+1, col)){
+            output.add(Directions.DOWN);
+        }
+        if (canStepOn(row, col-1)){
             output.add(Directions.LEFT);
+        }
+        if (canStepOn(row, col+1)){
+            output.add(Directions.RIGHT);
         }
         return output;
     }
@@ -140,30 +143,35 @@ public class Labyrinth {
             }
         }
     }
-    private int[] dir2Pos(int row, int col, Directions direction){
-        int[] newPos = new int[2];
-        int H=0, V=0;
-        newPos[0] = row;
-        newPos[1] = col;
-        switch(direction){
+    private int[] dir2Pos(int row, int col, Directions direction) {
+        int[] newPos = new int[] { row, col };
+        int dRow = 0, dCol = 0;
+        switch (direction) {
             case UP:
-                V= -1;
+                dRow = -1;
                 break;
             case DOWN:
-                V= 1;
+                dRow = 1;
                 break;
             case LEFT:
-                H= -1;
+                dCol = -1;
                 break;
             case RIGHT:
-                H= 1;
+                dCol = 1;
+                break;
+            default:
                 break;
         }
-        while(canStepOn(newPos[0]+H, newPos[1]+V)){
-            newPos[0] += H;
-            newPos[1] += V;
-            
+
+        int nextRow = newPos[0] + dRow;
+        int nextCol = newPos[1] + dCol;
+        while (canStepOn(nextRow, nextCol)) {
+            newPos[0] = nextRow;
+            newPos[1] = nextCol;
+            nextRow = newPos[0] + dRow;
+            nextCol = newPos[1] + dCol;
         }
+
         return newPos;
     }
     private int[] randomEmptyPos(){
@@ -182,10 +190,10 @@ public class Labyrinth {
         Monster output = null;
         if(canStepOn(row, col)){
             if(posOK(oldRow, oldCol)){
-                Player p = players[oldRow][oldCol].getPlayer();
+                Player p = players[oldRow][oldCol].get();
                 if(p == player){
+                    players[oldRow][oldCol]=null;
                     updateOldPos(oldRow, oldCol);
-                    player.setPos(oldRow, oldCol);
                 }
             }
 

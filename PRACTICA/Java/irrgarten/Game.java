@@ -20,7 +20,6 @@ public class Game {
         this.labyrinth = new Labyrinth(10, 10, 9, 9);
         for (int i = 0; i < nplayers; i++) {
             Player p = new Player((char)(i + '1'), Dice.randomIntelligence(), Dice.randomStrength());
-            System.out.println("Se ha creado" + p.getName());
             this.players.add(p);
         }
         currentPlayer = players.get(currentPlayerIndex);
@@ -101,6 +100,8 @@ public class Game {
         while(!lose && round < MAX_ROUNDS){
             winner = GameCharacter.MONSTER;
             round++;
+
+            
 
             float monsterAttack = monster.attack();
             lose = currentPlayer.defend(monsterAttack);
