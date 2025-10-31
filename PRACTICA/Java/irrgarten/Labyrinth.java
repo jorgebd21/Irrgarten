@@ -53,9 +53,9 @@ public class Labyrinth {
         for(int r=0; r<nRows; r++){
             for(int c=0; c<nCols; c++){
                 if(players[r][c] != null){
-                    salida += players[r][c].toString();
+                    salida += "  " + players[r][c].toString() + "  ";
                 }else{
-                    salida += labyrinth[r][c].getContent();
+                    salida += "  " + labyrinth[r][c].getContent() + "  ";
                 }
             }
             salida += "\n";
@@ -146,35 +146,25 @@ public class Labyrinth {
     private int[] dir2Pos(int row, int col, Directions direction) {
         int[] newPos = new int[] { row, col };
         int dRow = 0, dCol = 0;
+
         switch (direction) {
-            case UP:
-                dRow = -1;
-                break;
-            case DOWN:
-                dRow = 1;
-                break;
-            case LEFT:
-                dCol = -1;
-                break;
-            case RIGHT:
-                dCol = 1;
-                break;
-            default:
-                break;
+            case UP:    dRow = -1; break;
+            case DOWN:  dRow = 1;  break;
+            case LEFT:  dCol = -1; break;
+            case RIGHT: dCol = 1;  break;
         }
 
         int nextRow = newPos[0] + dRow;
         int nextCol = newPos[1] + dCol;
-        while (canStepOn(nextRow, nextCol)) {
+
+        if (posOK(nextRow, nextCol) && canStepOn(nextRow, nextCol)) {
             newPos[0] = nextRow;
             newPos[1] = nextCol;
-            nextRow = newPos[0] + dRow;
-            nextCol = newPos[1] + dCol;
         }
 
         return newPos;
     }
-    private int[] randomEmptyPos(){
+    public int[] randomEmptyPos(){
         boolean found = false;
         int [] pos = new int[2];
         do{

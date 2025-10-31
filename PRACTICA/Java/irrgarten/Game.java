@@ -7,6 +7,11 @@ public class Game {
     private int currentPlayerIndex;
     private String log;
 
+    private int nRow = 10;
+    private int nCol = 10;
+    private int rowPosE = 8;
+    private int colPosE = 8;
+
     private ArrayList<Player> players;
     private Labyrinth labyrinth;
     private ArrayList<Monster> monsters;
@@ -17,7 +22,7 @@ public class Game {
         this.log = "";
         this.players = new ArrayList<Player>(nplayers);
         this.monsters = new ArrayList<Monster>();
-        this.labyrinth = new Labyrinth(10, 10, 9, 9);
+        this.labyrinth = new Labyrinth(nRow, nCol, rowPosE, colPosE);
         for (int i = 0; i < nplayers; i++) {
             Player p = new Player((char)(i + '1'), Dice.randomIntelligence(), Dice.randomStrength());
             this.players.add(p);
@@ -64,19 +69,28 @@ public class Game {
         return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex, finished(), log);
     }
     private void configureLabyrinth(){
+        labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, nRow);
+        labyrinth.addBlock(Orientation.HORIZONTAL, nRow-1, 0 , nRow);
+        labyrinth.addBlock(Orientation.VERTICAL, 1, 0, nCol-2);
+        labyrinth.addBlock(Orientation.VERTICAL, 1, nCol-1, nCol-2);
+
+
         labyrinth.spreadPlayers(players.toArray(new Player[0]));
 
         Monster m1 = new Monster("A", Dice.randomIntelligence(), Dice.randomStrength());
         monsters.add(m1);
-        labyrinth.addMonster(2, 2, m1);
+        int i[] = labyrinth.randomEmptyPos();
+        labyrinth.addMonster(i[0], i[0], m1);
 
         Monster m2 = new Monster("B", Dice.randomStrength(), Dice.randomIntelligence());
         monsters.add(m2);
-        labyrinth.addMonster(4, 5, m2);
+        i = labyrinth.randomEmptyPos();
+        labyrinth.addMonster(i[0], i[0], m2);
 
         Monster m3 = new Monster("C", Dice.randomStrength(), Dice.randomIntelligence());
         monsters.add(m3);
-        labyrinth.addMonster(6, 7, m3);
+        i = labyrinth.randomEmptyPos();
+        labyrinth.addMonster(i[0], i[0], m3);
     }
     private void nextPlayer(){
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
@@ -100,8 +114,6 @@ public class Game {
         while(!lose && round < MAX_ROUNDS){
             winner = GameCharacter.MONSTER;
             round++;
-
-            
 
             float monsterAttack = monster.attack();
             lose = currentPlayer.defend(monsterAttack);

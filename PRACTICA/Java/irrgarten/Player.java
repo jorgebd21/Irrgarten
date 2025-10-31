@@ -181,7 +181,24 @@ public class Player {
         return sumShields() + intelligence;
     }
     private boolean manageHit(float receivedAttack){
-        throw new UnsupportedOperationException();
+        float defense = defensiveEnergy();
+
+        if(defense < receivedAttack){
+            gotWounded();
+            incConsecutiveHits();
+        }else{
+            resetHits();
+        }
+
+        boolean lose;
+        if((consecutiveHits == HITS2LOSE) || (dead())){
+            resetHits();
+            lose=true;
+        }else{
+            lose=false;
+        }
+
+        return lose;
     }
     private void resetHits(){
         consecutiveHits = 0;
