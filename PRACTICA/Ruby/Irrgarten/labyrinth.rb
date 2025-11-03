@@ -14,7 +14,7 @@ class Labyrinth
         @exit_col = exit_col
         
         @players = Array.new(n_rows) { Array.new(n_cols) }
-        @monters = Array.new(n_rows) { Array.new(n_cols) }
+        @monsters = Array.new(n_rows) { Array.new(n_cols) }
         @labyrinth = Array.new(n_rows) { Array.new(n_cols) }
 
         for i in n_rows
@@ -22,11 +22,11 @@ class Labyrinth
                 @labyrinth[i][j] = Labyrinth_square.new(i, j, @@EMPTY_CHAR)
             end
         end
-        @labyrinth[exit_row][exit_col] = Labyrinth_square.new(i, j, @@EXIT_CHAR)
+        @labyrinth[exit_row][exit_col] = Labyrinth_square.new(exit_row, exit_col, @@EXIT_CHAR)
     end
 
     def spread_players(player)
-        for i in player.length
+        for i in 0...player.length
             pos = random_empty_pos()
             put_player_2d(-1, -1, pos[0], pos[1], player[i])
         end
@@ -54,8 +54,8 @@ class Labyrinth
     def add_monster(row, col, monster)
         if pos_ok(row, col) && empty_pos(row, col)
             @labyrinth[row][col] = LabyrinthSquare.new(row, col, @@MONSTER_CHAR)
-            @monters[row][col] = MonsterSquare.new(row, col, monster)
-            @monsters[row][col].set_pos(row, col)
+            @monsters[row][col] = MonsterSquare.new(row, col, monster)
+            @monsters[row][col].get().set_pos(row, col)
         end
     end
 
@@ -78,7 +78,7 @@ class Labyrinth
         row = start_row
         col = start_col
 
-        while(pos_ok(row, col) && (empty_pos(pos, col) && (length > 0)))
+        while(pos_ok(row, col) && (empty_pos(row, col) && (length > 0)))
             @labyrinth[row][col].set(row, col, @@BLOCK_CHAR)
             length -= 1
             row += inc_row
@@ -89,16 +89,16 @@ class Labyrinth
     def valid_moves(row, col)
         output = Array.new()
         if(can_step_on(row - 1, col))
-            output.add(Direction.UP)
+            output.push(Direction.UP)
         end
         if(can_step_on(row + 1, col))
-            output.add(Direction.DOWN)
+            output.push(Direction.DOWN)
         end
         if(can_step_on(row, col - 1))
-            output.add(Direction.LEFT)
+            output.push(Direction.LEFT)
         end
         if(can_step_on(row, col + 1))
-            output.add(Direction.RIGHT)
+            output.push(Direction.RIGHT)
         end
         return output
     end
@@ -114,7 +114,7 @@ class Labyrinth
     end
 
     def monster_pos(row, col)
-        return (@monters[row][col] != nil) && (@players[row][col] == nil)
+        return (@monsters[row][col] != nil) && (@players[row][col] == nil)
     end
 
     def exit_pos(row, col)
@@ -122,7 +122,7 @@ class Labyrinth
     end
 
     def combat_pos(row, col)
-        return (@monters[row][col] == nil) && (@players[row][col] == nil)
+        return (@monsters[row][col] == nil) && (@players[row][col] == nil)
     end
 
     def can_step_on(row, col)
@@ -151,13 +151,13 @@ class Labyrinth
         v = 0
 
         case direction
-        when :UP
+        when :up
             h = -1
-        when :DOWN
+        when :down
             h = 1
-        when :LEFT
+        when :left
             v = -1
-        when :RIGHT
+        when :right
             v = 1
         end
 
@@ -172,7 +172,7 @@ class Labyrinth
         return new_pos
     end
 
-    def random_empty_pos
+    def random_empty_pos()
         found = false
         pos = [0, 0]
         dice = Dice.new
@@ -186,7 +186,7 @@ class Labyrinth
         return pos
     end
 
-    def put_player_2d(old_row, old_col, row, col)
+    def put_player_2d(old_row, old_col, row, col, player)
         output = nil
         if(can_step_on(old_row, old_col))
             if(pos_ok(old_row, old_col))

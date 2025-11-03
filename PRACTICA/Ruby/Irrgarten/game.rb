@@ -5,15 +5,15 @@ class Game
         @current_player_index = 0
         @log = ""
         @players = Array.new(nplayers)
-        @labyrinth = Labyrinth.new(10, 10, 9, 9)
+        @labyrinth = Labyrinth.new(10, 10, 8, 8)
         @monsters = Array.new
 
         for i in nplayers
             dice = Dice.new()
-            p = Player.new((i+'1'), dice.random_intelligence(), dice.random_strength())
+            p = Player.new((i+1).to_s, dice.random_intelligence(), dice.random_strength())
             @players[i] = p
         end
-        @current_player = @players[current_player_index]
+        @current_player = @players[@current_player_index]
 
         configure_labyrinth()
     end
@@ -23,7 +23,7 @@ class Game
     end
 
     def next_step(preferred_direction)
-        log = ""
+        @log = ""
         dead = current_player.dead()
 
         if(!dead)
@@ -58,29 +58,29 @@ class Game
     end
 
     def configure_labyrinth()
-        labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, nRow);
-        labyrinth.addBlock(Orientation.HORIZONTAL, nRow-1, 0 , nRow);
-        labyrinth.addBlock(Orientation.VERTICAL, 1, 0, nCol-2);
-        labyrinth.addBlock(Orientation.VERTICAL, 1, nCol-1, nCol-2);
+        @labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, 10);
+        @labyrinth.addBlock(Orientation.HORIZONTAL, 10-1, 0 , 10);
+        @labyrinth.addBlock(Orientation.VERTICAL, 1, 0, 10-2);
+        @labyrinth.addBlock(Orientation.VERTICAL, 1, 10-1, 10-2);
 
-        labyrinth.spreadPlayers(@players);
+        @labyrinth.spreadPlayers(@players);
     
         puntero = 0
         dice = Dice.new()
         m1 = Monster.new("A", dice.random_intelligence(), dice.random_strength())
-        @monsters[puntero++] = m1
-        i = labyrinth.random_empty_pos()
-        labyrinth.add_monster(i[0], i[1], m1)
+        @monsters.push(m1)
+        i = @labyrinth.random_empty_pos()
+        @labyrinth.add_monster(i[0], i[1], m1)
 
         m2 = Monster.new("B", dice.random_intelligence(), dice.random_strength())
-        @monsters[puntero++] = m2
-        i = labyrinth.random_empty_pos()
-        labyrinth.add_monster(i[0], i[1], m2)
+        @monsters.push(m2)
+        i = @labyrinth.random_empty_pos()
+        @labyrinth.add_monster(i[0], i[1], m2)
 
         m3 = Monster.new("C", dice.random_intelligence(), dice.random_strength())
-        @monsters[puntero++] = m3
-        i = labyrinth.random_empty_pos()
-        labyrinth.add_monster(i[0], i[1], m3)
+        @monsters.push(m3)
+        i = @labyrinth.random_empty_pos()
+        @labyrinth.add_monster(i[0], i[1], m3)
     end
 
     def next_player()
@@ -104,7 +104,7 @@ class Game
 
         player_attack = @current_player.attack()
         lose = monster.defend(player_attack)
-        while ((!lose) && (round < MAX_ROUNDS))
+        while ((!lose) && (round < @@MAX_ROUNDS))
             winner = Game_character.MONSTER
             round += 1
 
@@ -118,7 +118,7 @@ class Game
             end
         end
 
-        log_round(round, MAX_ROUNDS)
+        log_round(round, @@MAX_ROUNDS)
         return winner
     end
 
@@ -168,6 +168,6 @@ class Game
     end
 
     def log_round(round, max)
-        @log += "---- Ronda #{round} de #{max} ----\n"
+        @log += "---- Ronda " + round + " de " + max + " ----\n"
     end
 end

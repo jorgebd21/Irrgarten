@@ -1,11 +1,11 @@
 class Game_state
-    def initialize(lab, p, m, c, w, l)
-        @labyrinth = lab
-        @players = p
-        @monsters = m
-        @current_player = c
-        @winner = w
-        @log = l
+    def initialize(labyrinth, players, monsters, current_player, winner, log)
+        @labyrinth = labyrinth
+        @players = players
+        @monsters = monsters
+        @current_player = current_player
+        @winner = winner
+        @log = log
     end
 
     def get_labyrinth()

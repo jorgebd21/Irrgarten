@@ -11,18 +11,18 @@ class Player
         @strength = strength
         @health = @@INITIAL_HEALTH
         @consecutive_hits = 0
-        @weapons = Array.new(MAX_WEAPONS)   
-        @shields = Array.new(MAX_SHIELDS)
+        @weapons = Array.new(@@MAX_WEAPONS)   
+        @shields = Array.new(@@MAX_SHIELDS)
 
-        for i in MAX_WEAPONS
+        for i in @@MAX_WEAPONS
             dice = Dice.new()
             w = Weapon.new(dice.weapon_power(), dice.uses_left())
             @weapons[i] = w
         end
 
-        for i in MAX_SHIELDS
+        for i in @@MAX_SHIELDS
             dice = Dice.new()
-            s = Weapon.new(dice.weapon_power(), dice.uses_left())
+            s = Shield.new(dice.shield_power(), dice.uses_left())
             @shields[i] = s
         end
     end
@@ -70,7 +70,7 @@ class Player
         end
     end
 
-    def attack
+    def attack()
         return sum_weapons() + @strength
     end
 
@@ -96,7 +96,7 @@ class Player
         @health += extra_health
     end
 
-    def to_s
+    def to_s()
         weapon_s = ""
         shield_s = ""
         for weapon in @weapons
@@ -114,13 +114,13 @@ class Player
             w = @weapons[i]
             discard = w.discard()
             if (discard)
-                @weapons.remove(w)
+                @weapons.delete(w)
             end
         end
 
         size = @weapons.size()
-        if(size < MAX_WEAPONS)
-            @weapons.add(w)
+        if(size < @@MAX_WEAPONS)
+            @weapons.push(w)
         end 
     end
 
@@ -129,13 +129,13 @@ class Player
             s = @shields[i]
             discard = s.discard()
             if (discard)
-                @shields.remove(s)
+                @shields.delete(s)
             end
         end
 
         size = @shields.size()
-        if(size < MAX_SHIELDS)
-            @shields.add(s)
+        if(size < @@MAX_SHIELDS)
+            @shields.push(s)
         end 
     end
 
@@ -149,7 +149,7 @@ class Player
         return Shield.new(dice.shield_power(), dice.uses_left())
     end
 
-    def sum_weapons
+    def sum_weapons()
         sum = 0
         for weapon in @weapons
             sum += weapon.attack()
@@ -157,7 +157,7 @@ class Player
         return sum
     end
 
-    def sum_shields
+    def sum_shields()
         sum = 0
         for shield in @shields
             sum += shield.protect()
@@ -165,7 +165,7 @@ class Player
         return sum
     end
 
-    def defensive_energy
+    def defensive_energy()
         return sum_shields() + @intelligence
     end
 
@@ -180,7 +180,7 @@ class Player
         end
 
         lose = false
-        if((consecutive_hits == @@HITS2LOSE) || dead())
+        if((@consecutive_hits == @@HITS2LOSE) || dead())
             reset_hits()
             lose = true
 
@@ -189,15 +189,15 @@ class Player
         return lose
     end
 
-    def reset_hits
+    def reset_hits()
         @consecutive_hits = 0
     end
 
-    def got_wounded
+    def got_wounded()
         @health -= 1
     end
 
-    def in_consecutive_hits
-        return @consecutive_hits += 1
+    def in_consecutive_hits()
+        @consecutive_hits += 1
     end
 end

@@ -6,7 +6,7 @@ class Player_square
     end
 
     def get()
-        return @player
+        return @name
     end
 
     def set(row, col, name)
@@ -16,6 +16,6 @@ class Player_square
     end
 
     def to_s()
-        return @player.get_number() + ""
+        return @name.get_number() + ""
     end
 end
