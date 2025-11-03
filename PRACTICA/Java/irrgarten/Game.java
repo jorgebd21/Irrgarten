@@ -17,63 +17,65 @@ public class Game {
     private ArrayList<Monster> monsters;
     private Player currentPlayer;
 
-    public Game(int nplayers){
+    public Game(int nplayers) {
         this.currentPlayerIndex = 0;
         this.log = "";
         this.players = new ArrayList<Player>(nplayers);
         this.monsters = new ArrayList<Monster>();
         this.labyrinth = new Labyrinth(nRow, nCol, rowPosE, colPosE);
         for (int i = 0; i < nplayers; i++) {
-            Player p = new Player((char)(i + '1'), Dice.randomIntelligence(), Dice.randomStrength());
+            Player p = new Player((char) (i + '1'), Dice.randomIntelligence(), Dice.randomStrength());
             this.players.add(p);
         }
         currentPlayer = players.get(currentPlayerIndex);
 
         configureLabyrinth();
     }
-    public boolean finished(){
+
+    public boolean finished() {
         return labyrinth.haveAWinner();
     }
-    public boolean nextStep(Directions preferredDirections){
-        log  = "";
+
+    public boolean nextStep(Directions preferredDirections) {
+        log = "";
         boolean dead = currentPlayer.dead();
 
-        if(!dead){
+        if (!dead) {
             Directions direction = actualDirection(preferredDirections);
 
-            if(direction != preferredDirections){
+            if (direction != preferredDirections) {
                 logPlayerNoOrders();
             }
 
             Monster monster = labyrinth.putPlayer(direction, currentPlayer);
 
-            if(monster == null){
+            if (monster == null) {
                 logNoMonster();
-            }
-            else{
+            } else {
                 GameCharacter winner = combat(monster);
                 manageReward(winner);
             }
 
-        }else{
+        } else {
             manageResurrection();
         }
 
         boolean endGame = finished();
-        if(!endGame){
+        if (!endGame) {
             nextPlayer();
         }
         return endGame;
     }
-    public GameState getGameState(){
+
+    public GameState getGameState() {
         return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex, finished(), log);
     }
-    private void configureLabyrinth(){
-        labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, nRow);
-        labyrinth.addBlock(Orientation.HORIZONTAL, nRow-1, 0 , nRow);
-        labyrinth.addBlock(Orientation.VERTICAL, 1, 0, nCol-2);
-        labyrinth.addBlock(Orientation.VERTICAL, 1, nCol-1, nCol-2);
 
+    private void configureLabyrinth() {
+        labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, nRow);
+        labyrinth.addBlock(Orientation.HORIZONTAL, nRow - 1, 0, nRow);
+        labyrinth.addBlock(Orientation.VERTICAL, 1, 0, nCol - 2);
+        labyrinth.addBlock(Orientation.VERTICAL, 1, nCol - 1, nCol - 2);
 
         labyrinth.spreadPlayers(players.toArray(new Player[0]));
 
@@ -92,11 +94,13 @@ public class Game {
         i = labyrinth.randomEmptyPos();
         labyrinth.addMonster(i[0], i[0], m3);
     }
-    private void nextPlayer(){
+
+    private void nextPlayer() {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         currentPlayer = players.get(currentPlayerIndex);
     }
-    private Directions actualDirection(Directions preferredDirection){
+
+    private Directions actualDirection(Directions preferredDirection) {
         int currentRow = currentPlayer.getRow();
         int currentCol = currentPlayer.getCol();
 
@@ -105,20 +109,21 @@ public class Game {
 
         return output;
     }
-    private GameCharacter combat(Monster monster){
+
+    private GameCharacter combat(Monster monster) {
         int round = 0;
         GameCharacter winner = GameCharacter.PLAYER;
 
         float playerAttack = currentPlayer.attack();
         boolean lose = monster.defend(playerAttack);
-        while(!lose && round < MAX_ROUNDS){
+        while (!lose && round < MAX_ROUNDS) {
             winner = GameCharacter.MONSTER;
             round++;
 
             float monsterAttack = monster.attack();
             lose = currentPlayer.defend(monsterAttack);
 
-            if(!lose){
+            if (!lose) {
                 winner = GameCharacter.PLAYER;
                 playerAttack = currentPlayer.attack();
                 lose = monster.defend(playerAttack);
@@ -128,43 +133,51 @@ public class Game {
         logRound(round, MAX_ROUNDS);
         return winner;
     }
-    private void manageReward(GameCharacter winner){
-        if(winner == GameCharacter.PLAYER){
+
+    private void manageReward(GameCharacter winner) {
+        if (winner == GameCharacter.PLAYER) {
             currentPlayer.receivedReward();
             logPlayerWon();
-        }else{
+        } else {
             logMonsterWon();
         }
     }
-    private void manageResurrection(){
+
+    private void manageResurrection() {
         boolean resurrect = Dice.resurrectPlayer();
-        if(resurrect){
+        if (resurrect) {
             currentPlayer.resurrect();
             logResurrected();
-        }
-        else{
+        } else {
             logPlayerSkipTurn();
         }
     }
-    private void logPlayerWon(){
+
+    private void logPlayerWon() {
         log += currentPlayer.getName() + " ha ganado el combate!\n";
     }
-    private void logMonsterWon(){
+
+    private void logMonsterWon() {
         log += "El monstruo ha ganado el combate!\n";
     }
-    private void logResurrected(){
+
+    private void logResurrected() {
         log += currentPlayer.getName() + " ha resucitado!\n";
     }
-    private void logPlayerSkipTurn(){
+
+    private void logPlayerSkipTurn() {
         log += currentPlayer.getName() + " se salta el turno!\n";
     }
-    private void logPlayerNoOrders(){
+
+    private void logPlayerNoOrders() {
         log += currentPlayer.getName() + " no tiene ordenes!\n";
     }
-    private void logNoMonster(){
+
+    private void logNoMonster() {
         log += "El jugador se ha movido a una celda vacia o no se ha podido mover\n";
     }
-    private void logRound(int round, int max){
+
+    private void logRound(int round, int max) {
         log += "---- Ronda " + round + " de " + max + " ----\n";
     }
 }

@@ -20,18 +20,23 @@ public class GameState {
     public String getLabyrinth() {
         return laberinth;
     }
+
     public String getPlayers() {
         return players;
     }
+
     public String getMonsters() {
         return monsters;
     }
+
     public int getCurrentPlayer() {
         return currentPlayer;
     }
+
     public boolean isWinner() {
         return winner;
     }
+
     public String getLog() {
         return log;
     }

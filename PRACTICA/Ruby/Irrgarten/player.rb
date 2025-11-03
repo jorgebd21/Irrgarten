@@ -11,30 +11,42 @@ class Player
         @strength = strength
         @health = @@INITIAL_HEALTH
         @consecutive_hits = 0
-        @weapons = Array.new
-        @shields = Array.new
+        @weapons = Array.new(MAX_WEAPONS)   
+        @shields = Array.new(MAX_SHIELDS)
+
+        for i in MAX_WEAPONS
+            dice = Dice.new()
+            w = Weapon.new(dice.weapon_power(), dice.uses_left())
+            @weapons[i] = w
+        end
+
+        for i in MAX_SHIELDS
+            dice = Dice.new()
+            s = Weapon.new(dice.weapon_power(), dice.uses_left())
+            @shields[i] = s
+        end
     end
 
-    def get_name
+    def get_name()
         return @name
     end
 
-    def resurrect
+    def resurrect()
         @weapons.clear
         @shields.clear
         @health = @@INITIAL_HEALTH
         @consecutive_hits = 0
     end
 
-    def get_row
+    def get_row()
         return @row
     end
 
-    def get_col
+    def get_col()
         return @col
     end
 
-    def get_number
+    def get_number()
         return @number
     end
 
@@ -43,11 +55,19 @@ class Player
         @col = col
     end
 
-    def dead
+    def dead()
         return (@health < 0)
     end
         
     def move(direction, valid_moves)
+        size = valid_moves.size()
+        contained = valid_moves.contained(direction)
+
+        if((size > 0) && !contained)
+            return valid_moves.get(0)
+        else
+            return direction
+        end
     end
 
     def attack
@@ -55,9 +75,25 @@ class Player
     end
 
     def defend(received_attack)
+        return manage_hit(received_attack)
     end
 
-    def received_reward
+    def received_reward()
+        dice = Dice.new()
+        w_reward = dice.weapons_reward()
+        s_reward = dice.shields_reward()
+
+        for i in w_reward
+            wnew = new_weapon()
+            receive_weapon(wnew)
+        end
+        for i in s_reward
+            snew = new_shield()
+            receive_shield(snew)
+        end
+
+        extra_health = dice.health_reward()
+        @health += extra_health
     end
 
     def to_s
@@ -71,28 +107,46 @@ class Player
         end
         return "Nombre: #{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapon_s + ", Escudos: #{@shields.size}: " + shield_s
     end
-
-    def newWeapon()
-        dice = Dice.new
-        weapon = Weapon.new(dice.weapon_power(), dice.uses_left())
-        if @weapons.size < @@MAX_WEAPONS
-            weapons.push(weapon)
-        end
-    end
-
-    def newShield()
-        dice = Dice.new
-        shield = Shield.new(dice.shield_power(), dice.uses_left())
-        if @shields.size < @@MAX_SHIELDS
-            shields.push(shield)
-        end
-    end
     
     private
     def receive_weapon(weapon)
+        for i in @weapons.size()
+            w = @weapons[i]
+            discard = w.discard()
+            if (discard)
+                @weapons.remove(w)
+            end
+        end
+
+        size = @weapons.size()
+        if(size < MAX_WEAPONS)
+            @weapons.add(w)
+        end 
     end
 
     def receive_shield(shield)
+        for i in @shields.size()
+            s = @shields[i]
+            discard = s.discard()
+            if (discard)
+                @shields.remove(s)
+            end
+        end
+
+        size = @shields.size()
+        if(size < MAX_SHIELDS)
+            @shields.add(s)
+        end 
+    end
+
+    def new_weapon()
+        dice = Dice.new
+        return Weapon.new(dice.weapon_power(), dice.uses_left())
+    end
+
+    def new_shield()
+        dice = Dice.new
+        return Shield.new(dice.shield_power(), dice.uses_left())
     end
 
     def sum_weapons
@@ -112,9 +166,27 @@ class Player
     end
 
     def defensive_energy
+        return sum_shields() + @intelligence
     end
 
     def manage_hit(received_attack)
+        defense = defensive_energy()
+
+        if(defense < received_attack)
+            got_wounded()
+            in_consecutive_hits()
+        else
+            reset_hits()
+        end
+
+        lose = false
+        if((consecutive_hits == @@HITS2LOSE) || dead())
+            reset_hits()
+            lose = true
+
+        end
+
+        return lose
     end
 
     def reset_hits

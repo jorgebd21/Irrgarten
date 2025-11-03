@@ -5,11 +5,13 @@ class Labyrinth_square
         @content = content
     end
 
-    def get_content()
+    def get()
         @content
     end
 
-    def set_content(content)
+    def set(row, col, content)
+        @row = row
+        @col = col
         @content = content
     end
 end

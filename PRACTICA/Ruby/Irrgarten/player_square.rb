@@ -4,4 +4,18 @@ class Player_square
         @col = col
         @name = name
     end
+
+    def get()
+        return @player
+    end
+
+    def set(row, col, name)
+        @row = row
+        @col = col
+        @name = name
+    end
+
+    def to_s()
+        return @player.get_number() + ""
+    end
 end

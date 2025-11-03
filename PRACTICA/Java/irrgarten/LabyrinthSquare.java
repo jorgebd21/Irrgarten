@@ -11,11 +11,13 @@ public class LabyrinthSquare {
         this.content = content;
     }
 
-    public char getContent() {
+    public char get() {
         return content;
     }
 
-    public void setContent(char content) {
+    public void set(int row, int col, char content) {
+        this.row = row;
+        this.col = col;
         this.content = content;
     }
 }

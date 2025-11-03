@@ -9,8 +9,9 @@ public class Shield {
         this.uses = uses;
     }
 
-    public float protect(){
-        float aux = 0; // Aux es una variable auxiliar para hacer solo un return estableciendolo a 0 como valor base
+    public float protect() {
+        float aux = 0; // Aux es una variable auxiliar para hacer solo un return estableciendolo a 0
+                       // como valor base
         if (uses > 0) {
             aux = protection;
             uses--;
@@ -18,11 +19,11 @@ public class Shield {
         return aux;
     }
 
-    public String toString(){
-        return "S["+protection+","+uses+"]";
+    public String toString() {
+        return "S[" + protection + "," + uses + "]";
     }
-    
-    public boolean discard(){
+
+    public boolean discard() {
         return Dice.discardElement(uses);
     }
 }

@@ -18,32 +18,39 @@ public class Monster {
         this.row = INITIAL_POS;
         this.col = INITIAL_POS;
     }
-    public boolean dead(){
+
+    public boolean dead() {
         return health < 0;
     }
-    public float attack(){
+
+    public float attack() {
         return Dice.intensity(strength);
     }
-    public boolean defend(float receivedAttack){
+
+    public boolean defend(float receivedAttack) {
         boolean isDead = dead();
-        if(!isDead){
+        if (!isDead) {
             float defensiveEnergy = Dice.intensity(intelligence);
-            if(defensiveEnergy < receivedAttack){
+            if (defensiveEnergy < receivedAttack) {
                 gotWounded();
                 dead();
             }
         }
         return isDead;
     }
-    public void setPos(int row, int col){
+
+    public void setPos(int row, int col) {
         assert row >= 0 && col >= 0;
         this.row = row;
         this.col = col;
     }
-    public String toString(){
-        return "Monster: " + name + " (I:" + intelligence + ", S:" + strength + ", H:" + health + ") in (" + row + "," + col + ")" + "\n";
+
+    public String toString() {
+        return "Monster: " + name + " (I:" + intelligence + ", S:" + strength + ", H:" + health + ") in (" + row + ","
+                + col + ")" + "\n";
     }
-    private void gotWounded(){
+
+    private void gotWounded() {
         health--;
     }
 }

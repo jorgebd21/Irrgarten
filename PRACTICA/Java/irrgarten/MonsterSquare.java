@@ -11,7 +11,13 @@ public class MonsterSquare {
         this.monster = monster;
     }
 
-    public Monster getMonster(){
+    public Monster get(){
         return monster;
+    }
+
+    public void set(int row, int col, Monster monster){
+        this.row = row;
+        this.col = col;
+        this.monster = monster;
     }
 }

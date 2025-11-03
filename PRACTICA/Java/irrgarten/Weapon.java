@@ -10,7 +10,8 @@ public class Weapon {
     }
 
     public float attack() {
-        float aux = 0; // Aux es una variable auxiliar para hacer solo un return estableciendolo a 0 como valor base
+        float aux = 0; // Aux es una variable auxiliar para hacer solo un return estableciendolo a 0
+                       // como valor base
         if (uses > 0) {
             uses--;
             aux = power;
@@ -18,11 +19,11 @@ public class Weapon {
         return aux;
     }
 
-    public String toString(){
-        return "W["+power+","+uses+"]";
+    public String toString() {
+        return "W[" + power + "," + uses + "]";
     }
 
-    public boolean discard(){
+    public boolean discard() {
         return Dice.discardElement(uses);
     }
 }

@@ -30,11 +30,11 @@ public class Player {
         this.weapons = new ArrayList<Weapon>(MAX_WEAPONS);
         this.shields = new ArrayList<Shield>(MAX_SHIELDS);
 
-        for(int i=0; i<MAX_WEAPONS; i++){
+        for (int i = 0; i < MAX_WEAPONS; i++) {
             Weapon w = new Weapon(Dice.weaponPower(), Dice.usesLeft());
             weapons.add(w);
         }
-        for(int i=0; i<MAX_SHIELDS; i++){
+        for (int i = 0; i < MAX_SHIELDS; i++) {
             Shield s = new Shield(Dice.shieldPower(), Dice.usesLeft());
             shields.add(s);
         }
@@ -54,62 +54,52 @@ public class Player {
     public int getRow() {
         return row;
     }
+
     public int getCol() {
         return col;
     }
+
     public char getNumber() {
         return number;
     }
+
     public void setPos(int row, int col) {
         assert row >= 0 && col >= 0;
         this.row = row;
         this.col = col;
     }
+
     public boolean dead() {
-        return health<0;
+        return health < 0;
     }
-    public Directions move(Directions direction, ArrayList<Directions> validMoves){
+
+    public Directions move(Directions direction, ArrayList<Directions> validMoves) {
         int size = validMoves.size();
         boolean contained = validMoves.contains(direction);
-        if((size > 0) && !contained){
+        if ((size > 0) && !contained) {
             return validMoves.get(0);
-        }else{
+        } else {
             return direction;
         }
     }
-    public float attack(){
+
+    public float attack() {
         return sumWeapons() + strength;
     }
-    public boolean defend(float receivedAttack){
-        manageHit(receivedAttack);
-        float defense = defensiveEnergy();
 
-        if(defense < receivedAttack){
-            gotWounded();
-            incConsecutiveHits();
-        }else{
-            resetHits();
-        }
-
-        boolean lose;
-        if(((consecutiveHits == HITS2LOSE) || dead())){
-            resetHits();
-            lose = true;
-        }else{
-            lose = false;
-        }
-
-        return lose;
+    public boolean defend(float receivedAttack) {
+        return manageHit(receivedAttack);
     }
-    public void receivedReward(){
+
+    public void receivedReward() {
         int wReward = Dice.weaponsReward();
         int sReward = Dice.shieldsReward();
 
-        for(int i=0; i<wReward; i++){
+        for (int i = 0; i < wReward; i++) {
             Weapon wnew = newWeapon();
             receiveWeapon(wnew);
         }
-        for(int i=0; i<sReward; i++){
+        for (int i = 0; i < sReward; i++) {
             Shield snew = newShield();
             receiveShield(snew);
         }
@@ -117,96 +107,108 @@ public class Player {
         int extraHealth = Dice.healthReward();
         health += extraHealth;
     }
-    public String toString(){
+
+    public String toString() {
         String wString = "";
         String sString = "";
-        for(int i=0; i<weapons.size(); i++){
+        for (int i = 0; i < weapons.size(); i++) {
             wString += weapons.get(i).toString() + " ";
         }
-        for(int i=0; i<shields.size(); i++){
+        for (int i = 0; i < shields.size(); i++) {
             sString += shields.get(i).toString() + " ";
         }
-        return name + " (HP: " + health + ", Pos: [" + row + "," + col + "], INT:" + intelligence + ", STR:" + strength + ") WEAPONS: " + wString + "SHIELDS: " + sString + "\n";
+        return name + " (HP: " + health + ", Pos: [" + row + "," + col + "], INT:" + intelligence + ", STR:" + strength
+                + ") WEAPONS: " + wString + "SHIELDS: " + sString + "\n";
     }
 
-    private void receiveWeapon(Weapon w){
-        for(int i=0; i<weapons.size(); i++){
+    private void receiveWeapon(Weapon w) {
+        for (int i = 0; i < weapons.size(); i++) {
             Weapon wi = weapons.get(i);
             boolean discard = wi.discard();
-            if(discard){
+            if (discard) {
                 weapons.remove(wi);
             }
         }
 
         int size = weapons.size();
-        if(size < MAX_WEAPONS){
+        if (size < MAX_WEAPONS) {
             weapons.add(w);
         }
     }
-    private void receiveShield(Shield s){
-        for(int i=0; i<shields.size(); i++){
+
+    private void receiveShield(Shield s) {
+        for (int i = 0; i < shields.size(); i++) {
             Shield si = shields.get(i);
             boolean discard = si.discard();
-            if(discard){
+            if (discard) {
                 shields.remove(si);
             }
         }
 
         int size = shields.size();
-        if(size < MAX_SHIELDS){
+        if (size < MAX_SHIELDS) {
             shields.add(s);
         }
     }
-    private Weapon newWeapon(){
+
+    private Weapon newWeapon() {
         return new Weapon(Dice.weaponPower(), Dice.usesLeft());
     }
-    private Shield newShield(){
+
+    private Shield newShield() {
         return new Shield(Dice.shieldPower(), Dice.usesLeft());
     }
-    private float sumWeapons(){
+
+    private float sumWeapons() {
         float sum = 0;
-        for(int i=0; i<MAX_WEAPONS ; i++){
+        for (int i = 0; i < MAX_WEAPONS; i++) {
             sum += weapons.get(i).attack();
         }
         return sum;
     }
-    private float sumShields(){
+
+    private float sumShields() {
         float sum = 0;
-        for(int i=0; i<MAX_SHIELDS ; i++){
+        for (int i = 0; i < MAX_SHIELDS; i++) {
             sum += shields.get(i).protect();
         }
         return sum;
     }
-    private float defensiveEnergy(){
+
+    private float defensiveEnergy() {
         return sumShields() + intelligence;
     }
-    private boolean manageHit(float receivedAttack){
+
+    private boolean manageHit(float receivedAttack) {
         float defense = defensiveEnergy();
 
-        if(defense < receivedAttack){
+        if (defense < receivedAttack) {
             gotWounded();
             incConsecutiveHits();
-        }else{
+        } else {
             resetHits();
         }
 
         boolean lose;
-        if((consecutiveHits == HITS2LOSE) || (dead())){
+        if ((consecutiveHits == HITS2LOSE) || (dead())) {
             resetHits();
-            lose=true;
-        }else{
-            lose=false;
+            lose = true;
+        } else {
+            lose = false;
         }
 
         return lose;
     }
-    private void resetHits(){
+
+    private void resetHits() {
         consecutiveHits = 0;
     }
-    private void gotWounded(){
+
+    private void gotWounded() {
         health--;
     }
-    private void incConsecutiveHits(){
+
+    private void incConsecutiveHits() {
         consecutiveHits++;
     }
 }
