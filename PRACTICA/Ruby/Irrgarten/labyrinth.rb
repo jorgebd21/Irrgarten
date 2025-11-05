@@ -1,3 +1,7 @@
+require_relative 'labyrinth_square'
+require_relative 'monster_square'
+require_relative 'player_square'
+
 class Labyrinth
     @@BLOCK_CHAR = 'X'
     @@EMPTY_CHAR = '-'
@@ -17,8 +21,8 @@ class Labyrinth
         @monsters = Array.new(n_rows) { Array.new(n_cols) }
         @labyrinth = Array.new(n_rows) { Array.new(n_cols) }
 
-        for i in n_rows
-            for j in n_cols
+        for i in 0...n_rows
+            for j in 0...n_cols
                 @labyrinth[i][j] = Labyrinth_square.new(i, j, @@EMPTY_CHAR)
             end
         end
@@ -35,7 +39,7 @@ class Labyrinth
     def have_a_winner
         return (@players[@exit_row][@exit_col] != nil)
     end
-
+    
     def to_s
         str = ""
         for row in 0...@n_rows
@@ -128,6 +132,7 @@ class Labyrinth
     def can_step_on(row, col)
         if(!pos_ok(row, col))
             return false
+        end
         return (empty_pos(row, col) || monster_pos(row, col) || exit_pos(row, col))
     end
 

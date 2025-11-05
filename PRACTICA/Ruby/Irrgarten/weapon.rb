@@ -14,7 +14,7 @@ class Weapon
         
         return use
     end
-
+    
     def to_s 
         "w[#{@power},#{@uses}]"
     end

@@ -1,3 +1,8 @@
+require_relative 'labyrinth'
+require_relative 'dice'
+require_relative 'player'
+require_relative 'orientation'
+
 class Game
     @@MAX_ROUNDS = 10
 
@@ -8,7 +13,7 @@ class Game
         @labyrinth = Labyrinth.new(10, 10, 8, 8)
         @monsters = Array.new
 
-        for i in nplayers
+        for i in 0...nplayers
             dice = Dice.new()
             p = Player.new((i+1).to_s, dice.random_intelligence(), dice.random_strength())
             @players[i] = p
@@ -58,10 +63,10 @@ class Game
     end
 
     def configure_labyrinth()
-        @labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, 10);
-        @labyrinth.addBlock(Orientation.HORIZONTAL, 10-1, 0 , 10);
-        @labyrinth.addBlock(Orientation.VERTICAL, 1, 0, 10-2);
-        @labyrinth.addBlock(Orientation.VERTICAL, 1, 10-1, 10-2);
+        @labyrinth.addBlock(Orientation::HORIZONTAL, 0, 0, 10);
+        @labyrinth.addBlock(Orientation::HORIZONTAL, 10-1, 0 , 10);
+        @labyrinth.addBlock(Orientation::VERTICAL, 1, 0, 10-2);
+        @labyrinth.addBlock(Orientatio::VERTICAL, 1, 10-1, 10-2);
 
         @labyrinth.spreadPlayers(@players);
     

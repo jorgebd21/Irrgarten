@@ -14,7 +14,7 @@ class Shield
 
         return use
     end
-
+    
     def to_s 
         "S[#{@protection},#{@uses}]"
     end

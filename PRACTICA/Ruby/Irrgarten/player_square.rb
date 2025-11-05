@@ -14,7 +14,7 @@ class Player_square
         @col = col
         @name = name
     end
-
+    
     def to_s()
         return @name.get_number() + ""
     end

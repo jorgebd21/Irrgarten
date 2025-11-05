@@ -1,3 +1,6 @@
+require_relative 'weapon'
+require_relative 'shield'
+
 class Player
     @@MAX_WEAPONS = 2
     @@MAX_SHIELDS = 3
@@ -14,13 +17,13 @@ class Player
         @weapons = Array.new(@@MAX_WEAPONS)   
         @shields = Array.new(@@MAX_SHIELDS)
 
-        for i in @@MAX_WEAPONS
+        for i in 0...@@MAX_WEAPONS
             dice = Dice.new()
             w = Weapon.new(dice.weapon_power(), dice.uses_left())
             @weapons[i] = w
         end
 
-        for i in @@MAX_SHIELDS
+        for i in 0...@@MAX_SHIELDS
             dice = Dice.new()
             s = Shield.new(dice.shield_power(), dice.uses_left())
             @shields[i] = s
@@ -83,11 +86,11 @@ class Player
         w_reward = dice.weapons_reward()
         s_reward = dice.shields_reward()
 
-        for i in w_reward
+        for i in 0...w_reward
             wnew = new_weapon()
             receive_weapon(wnew)
         end
-        for i in s_reward
+        for i in 0...s_reward
             snew = new_shield()
             receive_shield(snew)
         end
@@ -110,7 +113,7 @@ class Player
     
     private
     def receive_weapon(weapon)
-        for i in @weapons.size()
+        for i in 0...@weapons.size()
             w = @weapons[i]
             discard = w.discard()
             if (discard)
@@ -125,7 +128,7 @@ class Player
     end
 
     def receive_shield(shield)
-        for i in @shields.size()
+        for i in 0...@shields.size()
             s = @shields[i]
             discard = s.discard()
             if (discard)

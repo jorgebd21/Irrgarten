@@ -38,7 +38,7 @@ class Monster
         @row = row
         @col = col
     end
-
+    
     def to_s
         return "Monster: #{@name} (I: #{@intelligence}, S: #{@strength}, H: #{@health}) in (#{@row}, #{@col})"
     end
