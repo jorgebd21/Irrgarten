@@ -30,19 +30,19 @@ module UI
         case c
           when "\e[A"
             puts "UP ARROW"
-            output = Irrgarten::Directions::UP
+            output = Directions::UP
             got_input = true
           when "\e[B"
             puts "DOWN ARROW"
-            output = Irrgarten::Directions::DOWN
+            output = Directions::DOWN
             got_input = true
           when "\e[C"
             puts "RIGHT ARROW"
-            output = Irrgarten::Directions::RIGHT
+            output = Directions::RIGHT
             got_input = true
           when "\e[D"
             puts "LEFT ARROW"
-            output = Irrgarten::Directions::LEFT
+            output = Directions::LEFT
             got_input = true
           when "\u0003"
             puts "CONTROL-C"
@@ -69,7 +69,7 @@ module UI
 
       # Laberinto
       begin
-        lab = game_state.labyrinth
+        lab = game_state.get_labyrinth
         puts "LABERINTO:"
         puts lab.nil? ? "(vacío)" : lab
       rescue
@@ -79,7 +79,7 @@ module UI
 
       # Jugadores
       begin
-        players = game_state.players
+        players = game_state.get_players
         puts "JUGADORES:"
         puts players.nil? ? "(vacío)" : players
       rescue
@@ -89,7 +89,7 @@ module UI
 
       # Monstruos
       begin
-        monsters = game_state.monsters
+        monsters = game_state.get_monsters
         puts "MONSTRUOS:"
         puts monsters.nil? ? "(vacío)" : monsters
       rescue
@@ -99,24 +99,22 @@ module UI
 
       # Información adicional
       begin
-        puts "Turno actual (índice jugador): #{game_state.current_player}"
-      rescue
-        # ignorar si no existe
-      end
-
-      begin
-        puts "Juego terminado: "
+        puts "Turno actual (índice jugador): #{game_state.get_current_player}"
       rescue
         # ignorar si no existe
       end
 
       # Registro (log)
       begin
-        log = game_state.log
+        log = game_state.get_log
         unless log.nil? || log.empty?
           puts "----------------------------------------"
-          puts "REGISTRO:"
-          puts log
+          if(!game_state.get_winner)
+            puts "REGISTRO:"
+            puts log
+          else
+            puts "FIN DEL JUEGO, GANADOR JUGADOR #{game_state.get_current_player()}"
+          end
         end
       rescue
         # ignorar si no existe

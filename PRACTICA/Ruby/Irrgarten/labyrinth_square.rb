@@ -14,8 +14,4 @@ class Labyrinth_square
         @col = col
         @content = content
     end
-
-    def to_s()
-        return @content + ""
-    end
 end

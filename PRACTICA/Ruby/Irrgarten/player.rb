@@ -1,3 +1,4 @@
+require_relative 'dice'
 require_relative 'weapon'
 require_relative 'shield'
 
@@ -64,10 +65,10 @@ class Player
         
     def move(direction, valid_moves)
         size = valid_moves.size()
-        contained = valid_moves.contained(direction)
+        contained = valid_moves.include?(direction)
 
         if((size > 0) && !contained)
-            return valid_moves.get(0)
+            return valid_moves[0]
         else
             return direction
         end
@@ -83,8 +84,8 @@ class Player
 
     def received_reward()
         dice = Dice.new()
-        w_reward = dice.weapons_reward()
-        s_reward = dice.shields_reward()
+        w_reward = dice.weapon_reward()
+        s_reward = dice.shield_reward()
 
         for i in 0...w_reward
             wnew = new_weapon()
@@ -102,19 +103,18 @@ class Player
     def to_s()
         weapon_s = ""
         shield_s = ""
-        for weapon in @weapons
-            weapon_s += weapon.to_s
+        for i in 0...@weapons.size()
+            weapon_s += @weapons[i].to_s()
         end
-        for shield in @shields
-            shield_s += shield.to_s
+        for i in 0...@shields.size()
+            shield_s += @shields[i].to_s()
         end
-        return "Nombre: #{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapon_s + ", Escudos: #{@shields.size}: " + shield_s
+        return "#{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapon_s + ", Escudos: #{@shields.size}: " + shield_s + "\n"
     end
     
     private
     def receive_weapon(weapon)
-        for i in 0...@weapons.size()
-            w = @weapons[i]
+        for w in @weapons
             discard = w.discard()
             if (discard)
                 @weapons.delete(w)
@@ -123,13 +123,12 @@ class Player
 
         size = @weapons.size()
         if(size < @@MAX_WEAPONS)
-            @weapons.push(w)
+            @weapons.push(weapon)
         end 
     end
 
     def receive_shield(shield)
-        for i in 0...@shields.size()
-            s = @shields[i]
+        for s in @shields
             discard = s.discard()
             if (discard)
                 @shields.delete(s)
@@ -138,7 +137,7 @@ class Player
 
         size = @shields.size()
         if(size < @@MAX_SHIELDS)
-            @shields.push(s)
+            @shields.push(shield)
         end 
     end
 

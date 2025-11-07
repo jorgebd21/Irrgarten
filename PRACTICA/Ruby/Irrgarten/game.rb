@@ -1,7 +1,10 @@
 require_relative 'labyrinth'
 require_relative 'dice'
 require_relative 'player'
+require_relative 'monster'
 require_relative 'orientation'
+require_relative 'game_state'
+require_relative 'game_character'
 
 class Game
     @@MAX_ROUNDS = 10
@@ -15,10 +18,10 @@ class Game
 
         for i in 0...nplayers
             dice = Dice.new()
-            p = Player.new((i+1).to_s, dice.random_intelligence(), dice.random_strength())
+            p = Player.new((i+1).to_s(), dice.random_intelligence(), dice.random_strength())
             @players[i] = p
         end
-        @current_player = @players[@current_player_index]
+        @current_player = @players[0]
 
         configure_labyrinth()
     end
@@ -29,7 +32,7 @@ class Game
 
     def next_step(preferred_direction)
         @log = ""
-        dead = current_player.dead()
+        dead = @current_player.dead()
 
         if(!dead)
             direction = actual_direction(preferred_direction)
@@ -38,13 +41,13 @@ class Game
                 log_player_no_orders()
             end
 
-            monster = labyrinth.put_player(direction, current_player)
+            monster = @labyrinth.put_player(direction, @current_player)
 
             if(monster == nil)
                 log_no_monsters()
             else
                 winner = combat(monster)
-                manage_reward(winner)
+                manage_reward(winner, monster)
             end
         else
             manage_resurrection()
@@ -59,16 +62,24 @@ class Game
     end
 
     def get_game_state()
-        return GameState.new(@labyrinth.to_s, @players.to_s, @monsters.to_s, @current_player_index, finished(), @log)
+        p_s = ""
+        m_s = ""
+        for p in @players
+            p_s += p.to_s()
+        end
+        for m in @monsters
+            m_s += m.to_s()
+        end
+        return Game_state.new(@labyrinth.to_s(), p_s, m_s, @current_player_index, finished(), @log)
     end
 
     def configure_labyrinth()
-        @labyrinth.addBlock(Orientation::HORIZONTAL, 0, 0, 10);
-        @labyrinth.addBlock(Orientation::HORIZONTAL, 10-1, 0 , 10);
-        @labyrinth.addBlock(Orientation::VERTICAL, 1, 0, 10-2);
-        @labyrinth.addBlock(Orientatio::VERTICAL, 1, 10-1, 10-2);
+        @labyrinth.add_block(Orientation::HORIZONTAL, 0, 0, 10);
+        @labyrinth.add_block(Orientation::HORIZONTAL, 10-1, 0 , 10);
+        @labyrinth.add_block(Orientation::VERTICAL, 1, 0, 10-2);
+        @labyrinth.add_block(Orientation::VERTICAL, 1, 10-1, 10-2);
 
-        @labyrinth.spreadPlayers(@players);
+        @labyrinth.spread_players(@players);
     
         puntero = 0
         dice = Dice.new()
@@ -94,8 +105,8 @@ class Game
     end
 
     def actual_direction(preferred_direction)
-        current_row = current_player.get_row()
-        current_col = current_player.get_col()
+        current_row = @current_player.get_row()
+        current_col = @current_player.get_col()
 
         valid_moves = @labyrinth.valid_moves(current_row, current_col)
         output = @current_player.move(preferred_direction, valid_moves)
@@ -105,19 +116,19 @@ class Game
 
     def combat(monster)
         round = 0
-        winner = Game_character.PLAYER
+        winner = Game_character::PLAYER
 
         player_attack = @current_player.attack()
         lose = monster.defend(player_attack)
         while ((!lose) && (round < @@MAX_ROUNDS))
-            winner = Game_character.MONSTER
+            winner = Game_character::MONSTER
             round += 1
 
             monster_attack = monster.attack()
             lose = @current_player.defend(monster_attack)
 
             if(!lose)
-                winner = Game_character.PLAYER
+                winner = Game_character::PLAYER
                 player_attack = @current_player.attack()
                 lose = monster.defend(player_attack)
             end
@@ -127,9 +138,13 @@ class Game
         return winner
     end
 
-    def manage_reward(winner)
-        if(winner == Game_character.PLAYER)
+    def manage_reward(winner, monster)
+        if(winner == Game_character::PLAYER)
             @current_player.received_reward()
+            if(monster.dead())
+                @monsters.delete(monster)
+                @labyrinth.remove_monster(monster.get_row(), monster.get_col())
+            end
             log_player_won()
         else
             log_monster_won()
@@ -173,6 +188,6 @@ class Game
     end
 
     def log_round(round, max)
-        @log += "---- Ronda " + round + " de " + max + " ----\n"
+        @log += "---- Ronda #{round} de #{max} ----\n"
     end
 end

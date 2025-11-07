@@ -5,8 +5,8 @@ require_relative 'game'
 module Irrgarten
   class Main
     def self.run
-      controller = Control::Controller.new(Game.new(2), TextUI.new)
-      controller.play
+      controller = Control::Controller.new(Game.new(2), UI::TextUI.new)
+      controller.play()
     end
   end
 end

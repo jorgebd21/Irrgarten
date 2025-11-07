@@ -27,7 +27,7 @@ class Monster
             defensive_energy = dice.intensity(@intelligence)
             if(defensive_energy < received_attack)
                 got_wounded()
-                dead()
+                is_dead = dead()
             end
         end
 
@@ -38,9 +38,17 @@ class Monster
         @row = row
         @col = col
     end
+
+    def get_row()
+        return @row
+    end
+
+    def get_col()
+        return @col
+    end
     
-    def to_s
-        return "Monster: #{@name} (I: #{@intelligence}, S: #{@strength}, H: #{@health}) in (#{@row}, #{@col})"
+    def to_s()
+        return "Monster: #{@name} (I: #{@intelligence}, S: #{@strength}, H: #{@health})\n"
     end
 
     private
