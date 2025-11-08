@@ -37,9 +37,9 @@ public class Labyrinth {
         this.labyrinth[exitRow][exitCol] = new LabyrinthSquare(exitRow, exitCol, EXIT_CHAR);
     }
 
-    public void spreadPlayers(Player[] player) {
-        for (int i = 0; i < player.length; i++) {
-            Player p = player[i];
+    public void spreadPlayers(ArrayList<Player> player) {
+        for (int i = 0; i < player.size(); i++) {
+            Player p = player.get(i);
             int[] pos = randomEmptyPos();
             putPlayer2D(-1, -1, pos[0], pos[1], p);
         }

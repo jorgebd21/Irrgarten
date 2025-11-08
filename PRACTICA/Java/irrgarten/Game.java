@@ -77,7 +77,7 @@ public class Game {
         labyrinth.addBlock(Orientation.VERTICAL, 1, 0, nCol - 2);
         labyrinth.addBlock(Orientation.VERTICAL, 1, nCol - 1, nCol - 2);
 
-        labyrinth.spreadPlayers(players.toArray(new Player[0]));
+        labyrinth.spreadPlayers(players);
 
         Monster m1 = new Monster("A", Dice.randomIntelligence(), Dice.randomStrength());
         monsters.add(m1);
