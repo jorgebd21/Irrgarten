@@ -161,7 +161,7 @@ public class Player {
 
     private float sumWeapons() {
         float sum = 0;
-        for (int i = 0; i < MAX_WEAPONS; i++) {
+        for (int i = 0; i < weapons.size(); i++) {
             sum += weapons.get(i).attack();
         }
         return sum;
@@ -169,7 +169,7 @@ public class Player {
 
     private float sumShields() {
         float sum = 0;
-        for (int i = 0; i < MAX_SHIELDS; i++) {
+        for (int i = 0; i < shields.size(); i++) {
             sum += shields.get(i).protect();
         }
         return sum;
