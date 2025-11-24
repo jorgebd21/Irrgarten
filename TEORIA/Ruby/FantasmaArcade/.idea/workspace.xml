@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="818aac2c-3fce-4d71-8df4-0a6aadfe7852" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/dice.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/dice.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/game.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/game.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/game_state.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/game_state.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/labyrinth.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/labyrinth.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/player.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/player.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/player_square.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../PRACTICA/Ruby/Irrgarten/player_square.rb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Jorge-BD"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:Jorge-BD/PDOO.git",
+    "accountId": "41fa5c86-0595-410d-9cca-9b7a1ddabfc6"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="34yKVFAu4WkWRMmDztubUGOyIPO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.lang.ruby.rbs.tools.collection.workspace.sync.RbsCollectionUpdateProjectActivity#LAST_UPDATE_TIMESTAMP": "1762180456046",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-RM-252.27397.109" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="818aac2c-3fce-4d71-8df4-0a6aadfe7852" name="Changes" comment="" />
+      <created>1762180395850</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762180395850</updated>
+      <workItem from="1762180398915" duration="806000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
