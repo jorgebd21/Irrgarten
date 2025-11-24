@@ -3,13 +3,13 @@ package irrgarten;
 import java.util.ArrayList;
 
 public class Labyrinth {
-    static private char BLOCK_CHAR = 'X';
-    static private char EMPTY_CHAR = '-';
-    static private char MONSTER_CHAR = 'M';
-    static private char COMBAT_CHAR = 'C';
-    static private char EXIT_CHAR = 'E';
-    static private int ROW = 1;
-    static private int COL = 0;
+    static private final char BLOCK_CHAR = 'X';
+    static private final char EMPTY_CHAR = '-';
+    static private final char MONSTER_CHAR = 'M';
+    static private final char COMBAT_CHAR = 'C';
+    static private final char EXIT_CHAR = 'E';
+    static private final int ROW = 1;
+    static private final int COL = 0;
 
     private int nRows;
     private int nCols;
@@ -102,7 +102,7 @@ public class Labyrinth {
     }
 
     public ArrayList<Directions> validMoves(int row, int col) {
-        ArrayList<Directions> output = new ArrayList<Directions>();
+        ArrayList<Directions> output = new ArrayList<>();
         if (canStepOn(row - 1, col)) {
             output.add(Directions.UP);
         }
@@ -163,18 +163,10 @@ public class Labyrinth {
         int dRow = 0, dCol = 0;
 
         switch (direction) {
-            case UP:
-                dRow = -1;
-                break;
-            case DOWN:
-                dRow = 1;
-                break;
-            case LEFT:
-                dCol = -1;
-                break;
-            case RIGHT:
-                dCol = 1;
-                break;
+            case UP -> dRow = -1;
+            case DOWN -> dRow = 1;
+            case LEFT -> dCol = -1;
+            case RIGHT -> dCol = 1;
         }
 
         int nextRow = newPos[0] + dRow;
