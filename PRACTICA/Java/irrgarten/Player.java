@@ -108,6 +108,7 @@ public class Player {
         health += extraHealth;
     }
 
+    @Override
     public String toString() {
         String wString = "";
         String sString = "";
