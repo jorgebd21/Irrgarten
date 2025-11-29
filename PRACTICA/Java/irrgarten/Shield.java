@@ -1,10 +1,11 @@
 package irrgarten;
 
-public class Shield {
+public class Shield extends CombatElement {
     private float protection;
     private int uses;
 
     public Shield(float protection, int uses) {
+        super(protection, uses);
         this.protection = protection;
         this.uses = uses;
     }
@@ -19,11 +20,8 @@ public class Shield {
         return aux;
     }
 
+    @Override
     public String toString() {
         return "S[" + protection + "," + uses + "]";
-    }
-
-    public boolean discard() {
-        return Dice.discardElement(uses);
     }
 }
