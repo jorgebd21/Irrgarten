@@ -18,24 +18,31 @@ public class Player extends LabyrinthCharacter {
     private ShieldCardDeck shieldCardDeck;
 
     public Player(char number, float intelligence, float strength) {
+        super(("Player #" + number), intelligence, strength, INITIAL_HEALTH);
         this.number = number;
         this.consecutiveHits = 0;
-        this.weapons = new ArrayList<Weapon>(MAX_WEAPONS);
-        this.shields = new ArrayList<Shield>(MAX_SHIELDS);
+        this.weapons = new ArrayList<>(MAX_WEAPONS);
+        this.shields = new ArrayList<>(MAX_SHIELDS);
 
-        //HAY QUE PONER LA INICIALIZACION DE CARDDECKS
-
-        String name = "Player #" + number;
-        super(name, intelligence, strength, INITIAL_HEALTH);
+        weaponCardDeck = new WeaponCardDeck();
+        shieldCardDeck = new ShieldCardDeck();
 
         for (int i = 0; i < MAX_WEAPONS; i++) {
-            Weapon w = new Weapon(Dice.weaponPower(), Dice.usesLeft());
+            Weapon w = weaponCardDeck.nextCard();
             weapons.add(w);
         }
         for (int i = 0; i < MAX_SHIELDS; i++) {
-            Shield s = new Shield(Dice.shieldPower(), Dice.usesLeft());
+            Shield s = shieldCardDeck.nextCard();
             shields.add(s);
         }
+    }
+
+    public Player(Player other) {
+        super(other);
+        this.number = other.number;
+        this.consecutiveHits = other.consecutiveHits;
+        this.weapons = new ArrayList<>(other.weapons);
+        this.shields = new ArrayList<>(other.shields);
     }
 
     public void resurrect() {

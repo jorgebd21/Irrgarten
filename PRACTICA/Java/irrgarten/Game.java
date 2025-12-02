@@ -3,14 +3,14 @@ package irrgarten;
 import java.util.ArrayList;
 
 public class Game {
-    static private int MAX_ROUNDS = 10;
+    static private final int MAX_ROUNDS = 10;
     private int currentPlayerIndex;
     private String log;
 
-    private int nRow = 10;
-    private int nCol = 10;
-    private int rowPosE = 8;
-    private int colPosE = 8;
+    private final int nRow = 10;
+    private final int nCol = 10;
+    private final int rowPosE = 8;
+    private final int colPosE = 8;
 
     private ArrayList<Player> players;
     private Labyrinth labyrinth;
@@ -20,8 +20,8 @@ public class Game {
     public Game(int nplayers) {
         this.currentPlayerIndex = 0;
         this.log = "";
-        this.players = new ArrayList<Player>(nplayers);
-        this.monsters = new ArrayList<Monster>();
+        this.players = new ArrayList<>(nplayers);
+        this.monsters = new ArrayList<>();
         this.labyrinth = new Labyrinth(nRow, nCol, rowPosE, colPosE);
         for (int i = 0; i < nplayers; i++) {
             Player p = new Player((char) (i + '1'), Dice.randomIntelligence(), Dice.randomStrength());
@@ -146,6 +146,8 @@ public class Game {
     private void manageResurrection() {
         boolean resurrect = Dice.resurrectPlayer();
         if (resurrect) {
+            currentPlayer = new FuzzyPlayer(currentPlayer);
+            players.set(currentPlayerIndex, currentPlayer);
             currentPlayer.resurrect();
             logResurrected();
         } else {
@@ -154,7 +156,7 @@ public class Game {
     }
 
     private void logPlayerWon() {
-        log += currentPlayer.getName() + " ha ganado el combate!\n";
+        log += currentPlayer.getNumber() + " ha ganado el combate!\n";
     }
 
     private void logMonsterWon() {
@@ -162,15 +164,15 @@ public class Game {
     }
 
     private void logResurrected() {
-        log += currentPlayer.getName() + " ha resucitado!\n";
+        log += currentPlayer.getNumber() + " ha resucitado!\n";
     }
 
     private void logPlayerSkipTurn() {
-        log += currentPlayer.getName() + " se salta el turno!\n";
+        log += currentPlayer.getNumber() + " se salta el turno!\n";
     }
 
     private void logPlayerNoOrders() {
-        log += currentPlayer.getName() + " no tiene ordenes!\n";
+        log += currentPlayer.getNumber() + " no tiene ordenes!\n";
     }
 
     private void logNoMonster() {
