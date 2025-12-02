@@ -1,4 +1,6 @@
-class Shield < CombatElement
+require_relative 'combat_element'
+
+class Shield < Combat_element
     def initialize(protection, uses)
         super(protection, uses)
     end

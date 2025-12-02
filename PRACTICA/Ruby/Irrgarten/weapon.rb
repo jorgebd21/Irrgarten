@@ -1,4 +1,6 @@
-class Weapon < CombatElement
+require_relative 'combat_element'
+
+class Weapon < Combat_element
   def initialize(power, uses)
     super(power, uses)
   end

@@ -23,6 +23,7 @@ public class Game {
         this.players = new ArrayList<>(nplayers);
         this.monsters = new ArrayList<>();
         this.labyrinth = new Labyrinth(nRow, nCol, rowPosE, colPosE);
+
         for (int i = 0; i < nplayers; i++) {
             Player p = new Player((char) (i + '1'), Dice.randomIntelligence(), Dice.randomStrength());
             this.players.add(p);
@@ -68,8 +69,7 @@ public class Game {
     }
 
     public GameState getGameState() {
-        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex,
-                finished(), log);
+        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex, finished(), log);
     }
 
     private void configureLabyrinth() {

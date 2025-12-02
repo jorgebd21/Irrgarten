@@ -9,7 +9,7 @@ class Labyrinth_character
       @row = other.row
       @col = other.col
     else
-      @name = other
+      @name = name_or_other
       @intelligence = intelligence
       @strength = strength
       @health = health
@@ -22,13 +22,21 @@ class Labyrinth_character
     return @health < 0
   end
 
+  def get_row
+    return @row
+  end
+
+  def get_col
+    return @col
+  end
+
   def set_pos(row, col)
     @row = row
     @col = col
   end
 
   def to_s
-    "#{@name} (Int: #{@intelligence}, Str: #{@strength}, Hp: #{@health})"
+    return "#{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}\n"
   end
 
   protected

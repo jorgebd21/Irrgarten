@@ -1,3 +1,6 @@
+require_relative 'labyrinth_character'
+require_relative 'dice'
+
 class Monster < Labyrinth_character
     INITIAL_HEALTH = 10
 

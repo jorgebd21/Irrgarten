@@ -1,3 +1,6 @@
+require_relative 'player'
+require_relative 'dice'
+
 class Fuzzy_player < Player
   def initialize(other)
     super(other)

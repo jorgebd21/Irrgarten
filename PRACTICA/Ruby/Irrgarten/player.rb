@@ -1,6 +1,7 @@
-require_relative 'Dice'
+require_relative 'dice'
 require_relative 'weapon'
 require_relative 'shield'
+require_relative 'labyrinth_character'
 
 class Player < Labyrinth_character
     @@MAX_WEAPONS = 2
@@ -13,28 +14,28 @@ class Player < Labyrinth_character
             other = number_or_other
             super(other)
             @number = other.get_number()
-            @weapons = other.@weapons.clone
-            @shields = other.@shields.clone
-            @consecutive_hits = other.@consecutive_hits
+            @weapons = other.weapons.clone
+            @shields = other.shields.clone
+            @consecutive_hits = other.consecutive_hits
         else
-            super("Player #" + number.to_s, intelligence, strength, @@INITIAL_HEALTH)
+            super("Player #" + number_or_other.to_s, intelligence, strength, @@INITIAL_HEALTH)
             @consecutive_hits = 0
             @weapons = Array.new(@@MAX_WEAPONS)   
             @shields = Array.new(@@MAX_SHIELDS)
 
             for i in 0...@@MAX_WEAPONS
-                Dice = Dice.new()
                 w = Weapon.new(Dice.weapon_power(), Dice.uses_left())
                 @weapons[i] = w
             end
 
             for i in 0...@@MAX_SHIELDS
-                Dice = Dice.new()
                 s = Shield.new(Dice.shield_power(), Dice.uses_left())
                 @shields[i] = s
             end
         end
     end
+
+    attr_reader :weapons, :shields, :consecutive_hits
 
     def get_number()
         return @number
@@ -92,7 +93,7 @@ class Player < Labyrinth_character
         for i in 0...@shields.size()
             shield_s += @shields[i].to_s()
         end
-        return "#{@name}, Fuerza: #{@strength}, Inteligencia: #{@intelligence}, Salud: #{@health}, Armas: #{@weapons.size}: " + weapon_s + ", Escudos: #{@shields.size}: " + shield_s + "\n"
+        return super.to_s + "Armas: #{@weapons.size}: " + weapon_s + ", Escudos: #{@shields.size}: " + shield_s + "\n"
     end
     
     private

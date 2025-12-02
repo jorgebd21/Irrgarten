@@ -68,23 +68,23 @@ module UI
     puts
 
     puts "LABERINTO:"
-    puts game_state.labyrinth
+    puts game_state.get_labyrinth
     puts "----------------------------------------"
 
     puts "JUGADORES:"
-    puts game_state.players
+    puts game_state.get_players
     puts "----------------------------------------"
 
     puts "MONSTRUOS:"
-    puts game_state.monsters
+    puts game_state.get_monsters
     puts "----------------------------------------"
 
     puts "REGISTRO:"
-    puts "Turno actual (índice jugador): #{game_state.current_player}"
-    puts game_state.log
+    puts "Turno actual (índice jugador): #{game_state.get_current_player}"
+    puts game_state.get_log
     puts "========================================"
 
-    if game_state.is_winner?
+    if (game_state.get_winner)
       puts "¡¡¡JUEGO TERMINADO!!!"
       puts "========================================"
     end
