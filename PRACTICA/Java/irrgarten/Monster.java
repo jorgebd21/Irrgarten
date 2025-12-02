@@ -1,7 +1,7 @@
 package irrgarten;
 
 public class Monster extends LabyrinthCharacter {
-    static private final int INITIAL_HEALTH = 100;
+    static private final int INITIAL_HEALTH = 10;
 
     public Monster(String name, float intelligence, float strength) {
         super(name, intelligence, strength, INITIAL_HEALTH);
@@ -9,14 +9,14 @@ public class Monster extends LabyrinthCharacter {
 
     @Override
     public float attack() {
-        return Dice.intensity(super.getStrength());
+        return Dice.intensity(getStrength());
     }
 
     @Override
     public boolean defend(float receivedAttack) {
         boolean isDead = dead();
         if (!isDead) {
-            float defensiveEnergy = Dice.intensity(super.getIntelligence());
+            float defensiveEnergy = Dice.intensity(getIntelligence());
             if (defensiveEnergy < receivedAttack) {
                 gotWounded();
                 dead();

@@ -1,38 +1,43 @@
-require_relative 'dice'
+require_relative 'Dice'
 require_relative 'weapon'
 require_relative 'shield'
 
-class Player
+class Player < Labyrinth_character
     @@MAX_WEAPONS = 2
     @@MAX_SHIELDS = 3
     @@INITIAL_HEALTH = 10
     @@HITS2LOSE = 3
 
-    def initialize(number, intelligence, strength)
-        @name = "Player #" + number.to_s
-        @number = number
-        @intelligence = intelligence
-        @strength = strength
-        @health = @@INITIAL_HEALTH
-        @consecutive_hits = 0
-        @weapons = Array.new(@@MAX_WEAPONS)   
-        @shields = Array.new(@@MAX_SHIELDS)
+    def initialize(number_or_other, intelligence, strength)
+        if number_or_other.is_a?(Player)
+            other = number_or_other
+            super(other)
+            @number = other.get_number()
+            @weapons = other.@weapons.clone
+            @shields = other.@shields.clone
+            @consecutive_hits = other.@consecutive_hits
+        else
+            super("Player #" + number.to_s, intelligence, strength, @@INITIAL_HEALTH)
+            @consecutive_hits = 0
+            @weapons = Array.new(@@MAX_WEAPONS)   
+            @shields = Array.new(@@MAX_SHIELDS)
 
-        for i in 0...@@MAX_WEAPONS
-            dice = Dice.new()
-            w = Weapon.new(dice.weapon_power(), dice.uses_left())
-            @weapons[i] = w
-        end
+            for i in 0...@@MAX_WEAPONS
+                Dice = Dice.new()
+                w = Weapon.new(Dice.weapon_power(), Dice.uses_left())
+                @weapons[i] = w
+            end
 
-        for i in 0...@@MAX_SHIELDS
-            dice = Dice.new()
-            s = Shield.new(dice.shield_power(), dice.uses_left())
-            @shields[i] = s
+            for i in 0...@@MAX_SHIELDS
+                Dice = Dice.new()
+                s = Shield.new(Dice.shield_power(), Dice.uses_left())
+                @shields[i] = s
+            end
         end
     end
 
-    def get_name()
-        return @name
+    def get_number()
+        return @number
     end
 
     def resurrect()
@@ -42,27 +47,6 @@ class Player
         @consecutive_hits = 0
     end
 
-    def get_row()
-        return @row
-    end
-
-    def get_col()
-        return @col
-    end
-
-    def get_number()
-        return @number
-    end
-
-    def set_pos(row, col)
-        @row = row
-        @col = col
-    end
-
-    def dead()
-        return (@health < 0)
-    end
-        
     def move(direction, valid_moves)
         size = valid_moves.size()
         contained = valid_moves.include?(direction)
@@ -83,9 +67,8 @@ class Player
     end
 
     def received_reward()
-        dice = Dice.new()
-        w_reward = dice.weapon_reward()
-        s_reward = dice.shield_reward()
+        w_reward = Dice.weapon_reward()
+        s_reward = Dice.shield_reward()
 
         for i in 0...w_reward
             wnew = new_weapon()
@@ -96,7 +79,7 @@ class Player
             receive_shield(snew)
         end
 
-        extra_health = dice.health_reward()
+        extra_health = Dice.health_reward()
         @health += extra_health
     end
 
@@ -142,13 +125,11 @@ class Player
     end
 
     def new_weapon()
-        dice = Dice.new
-        return Weapon.new(dice.weapon_power(), dice.uses_left())
+        return Weapon.new(Dice.weapon_power(), Dice.uses_left())
     end
 
     def new_shield()
-        dice = Dice.new
-        return Shield.new(dice.shield_power(), dice.uses_left())
+        return Shield.new(Dice.shield_power(), Dice.uses_left())
     end
 
     def sum_weapons()
@@ -195,11 +176,9 @@ class Player
         @consecutive_hits = 0
     end
 
-    def got_wounded()
-        @health -= 1
-    end
-
     def in_consecutive_hits()
         @consecutive_hits += 1
     end
+
+    public_class_method :new
 end

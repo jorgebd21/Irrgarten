@@ -62,66 +62,34 @@ module UI
       end
 
       puts
+    puts "========================================"
+    puts "              ESTADO DEL JUEGO          "
+    puts "========================================"
+    puts
+
+    puts "LABERINTO:"
+    puts game_state.labyrinth
+    puts "----------------------------------------"
+
+    puts "JUGADORES:"
+    puts game_state.players
+    puts "----------------------------------------"
+
+    puts "MONSTRUOS:"
+    puts game_state.monsters
+    puts "----------------------------------------"
+
+    puts "REGISTRO:"
+    puts "Turno actual (índice jugador): #{game_state.current_player}"
+    puts game_state.log
+    puts "========================================"
+
+    if game_state.is_winner?
+      puts "¡¡¡JUEGO TERMINADO!!!"
       puts "========================================"
-      puts "              ESTADO DEL JUEGO          "
-      puts "========================================"
-      puts
+    end
 
-      # Laberinto
-      begin
-        lab = game_state.get_labyrinth
-        puts "LABERINTO:"
-        puts lab.nil? ? "(vacío)" : lab
-      rescue
-        puts "LABERINTO: (no disponible)"
-      end
-      puts "----------------------------------------"
-
-      # Jugadores
-      begin
-        players = game_state.get_players
-        puts "JUGADORES:"
-        puts players.nil? ? "(vacío)" : players
-      rescue
-        puts "JUGADORES: (no disponible)"
-      end
-      puts "----------------------------------------"
-
-      # Monstruos
-      begin
-        monsters = game_state.get_monsters
-        puts "MONSTRUOS:"
-        puts monsters.nil? ? "(vacío)" : monsters
-      rescue
-        puts "MONSTRUOS: (no disponible)"
-      end
-      puts "----------------------------------------"
-
-      # Información adicional
-      begin
-        puts "Turno actual (índice jugador): #{game_state.get_current_player}"
-      rescue
-        # ignorar si no existe
-      end
-
-      # Registro (log)
-      begin
-        log = game_state.get_log
-        unless log.nil? || log.empty?
-          puts "----------------------------------------"
-          if(!game_state.get_winner)
-            puts "REGISTRO:"
-            puts log
-          else
-            puts "FIN DEL JUEGO, GANADOR JUGADOR #{game_state.get_current_player()}"
-          end
-        end
-      rescue
-        # ignorar si no existe
-      end
-
-      puts "========================================"
-      puts
+    puts
 
     end
 

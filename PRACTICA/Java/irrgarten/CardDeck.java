@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class CardDeck<T> {
     private ArrayList<T> cardDeck;
 
-    CardDeck() {
+    public CardDeck() {
         cardDeck = new ArrayList<>();
     }
 

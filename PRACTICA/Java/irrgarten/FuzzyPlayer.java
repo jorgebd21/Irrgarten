@@ -1,12 +1,14 @@
 package irrgarten;
 
+import java.util.ArrayList;
+
 public class FuzzyPlayer extends Player {
     public FuzzyPlayer(Player other) {
         super(other);
     }
 
     @Override
-    public Directions move(Directions direction, java.util.ArrayList<Directions> validMoves) {
+    public Directions move(Directions direction, ArrayList<Directions> validMoves) {
         int size = validMoves.size();
         boolean contained = validMoves.contains(direction);
         if ((size > 0) && !contained) {
@@ -28,6 +30,6 @@ public class FuzzyPlayer extends Player {
 
     @Override
     public String toString() {
-        return "Fuzzy" + super.toString();
+        return "Fuzzy " + super.toString();
     }
 }

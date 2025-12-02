@@ -1,26 +1,15 @@
-class Weapon
-    def initialize(power, uses)
-        @power = power
-        @uses = uses
-    end
+class Weapon < CombatElement
+  def initialize(power, uses)
+    super(power, uses)
+  end
 
-    def attack
-        use = 0
+  def attack
+    return produce_effect()
+  end
 
-        if @uses > 0
-            use = @power
-            @uses -= 1
-        end
-        
-        return use
-    end
-    
-    def to_s()
-        "w[#{@power},#{@uses}]"
-    end
+  def to_s
+    "W" + super.to_s
+  end
 
-    def discard()
-        dice = Dice.new()
-        return dice.discard_element(@uses)
-    end
+  public_class_method :new
 end

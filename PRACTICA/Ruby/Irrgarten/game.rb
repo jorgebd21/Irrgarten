@@ -1,5 +1,5 @@
 require_relative 'labyrinth'
-require_relative 'dice'
+require_relative 'Dice'
 require_relative 'player'
 require_relative 'monster'
 require_relative 'orientation'
@@ -17,8 +17,8 @@ class Game
         @monsters = Array.new
 
         for i in 0...nplayers
-            dice = Dice.new()
-            p = Player.new((i+1).to_s(), dice.random_intelligence(), dice.random_strength())
+            
+            p = Player.new((i+1).to_s(), Dice.random_intelligence(), Dice.random_strength())
             @players[i] = p
         end
         @current_player = @players[0]
@@ -82,18 +82,18 @@ class Game
         @labyrinth.spread_players(@players);
     
         puntero = 0
-        dice = Dice.new()
-        m1 = Monster.new("A", dice.random_intelligence(), dice.random_strength())
+        
+        m1 = Monster.new("A", Dice.random_intelligence(), Dice.random_strength())
         @monsters.push(m1)
         i = @labyrinth.random_empty_pos()
         @labyrinth.add_monster(i[0], i[1], m1)
 
-        m2 = Monster.new("B", dice.random_intelligence(), dice.random_strength())
+        m2 = Monster.new("B", Dice.random_intelligence(), Dice.random_strength())
         @monsters.push(m2)
         i = @labyrinth.random_empty_pos()
         @labyrinth.add_monster(i[0], i[1], m2)
 
-        m3 = Monster.new("C", dice.random_intelligence(), dice.random_strength())
+        m3 = Monster.new("C", Dice.random_intelligence(), Dice.random_strength())
         @monsters.push(m3)
         i = @labyrinth.random_empty_pos()
         @labyrinth.add_monster(i[0], i[1], m3)
@@ -152,10 +152,10 @@ class Game
     end
 
     def manage_resurrection()
-        dice = Dice.new()
-        resurrect = dice.resurrect_player()
-
+        resurrect = Dice.resurrect_player()
         if(resurrect)
+            @current_player = FuzzyPlayer.new(@current_player)
+            @players[@current_player_index] = @current_player
             @current_player.resurrect()
             log_resurrected()
         else

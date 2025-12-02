@@ -23,5 +23,7 @@ public abstract class CombatElement {
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "[" + effect + "," + uses + "]";
+    }
 }
