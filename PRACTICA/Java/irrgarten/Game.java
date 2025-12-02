@@ -82,17 +82,17 @@ public class Game {
         Monster m1 = new Monster("A", Dice.randomIntelligence(), Dice.randomStrength());
         monsters.add(m1);
         int i[] = labyrinth.randomEmptyPos();
-        labyrinth.addMonster(i[0], i[0], m1);
+        labyrinth.addMonster(i[0], i[1], m1);
 
         Monster m2 = new Monster("B", Dice.randomStrength(), Dice.randomIntelligence());
         monsters.add(m2);
         i = labyrinth.randomEmptyPos();
-        labyrinth.addMonster(i[0], i[0], m2);
+        labyrinth.addMonster(i[0], i[1], m2);
 
         Monster m3 = new Monster("C", Dice.randomStrength(), Dice.randomIntelligence());
         monsters.add(m3);
         i = labyrinth.randomEmptyPos();
-        labyrinth.addMonster(i[0], i[0], m3);
+        labyrinth.addMonster(i[0], i[1], m3);
     }
 
     private void nextPlayer() {

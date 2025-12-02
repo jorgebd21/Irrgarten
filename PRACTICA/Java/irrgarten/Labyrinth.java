@@ -8,17 +8,15 @@ public class Labyrinth {
     static private final char MONSTER_CHAR = 'M';
     static private final char COMBAT_CHAR = 'C';
     static private final char EXIT_CHAR = 'E';
-    static private final int ROW = 1;
-    static private final int COL = 0;
 
     private int nRows;
     private int nCols;
     private int exitRow;
     private int exitCol;
 
-    private PlayerSquare[][] players;
-    private MonsterSquare[][] monsters;
-    private LabyrinthSquare[][] labyrinth;
+    private Player[][] players;
+    private Monster[][] monsters;
+    private char[][] labyrinth;
 
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol) {
         this.nRows = nRows;
@@ -26,15 +24,17 @@ public class Labyrinth {
         this.exitRow = exitRow;
         this.exitCol = exitCol;
 
-        this.players = new PlayerSquare[nRows][nCols];
-        this.monsters = new MonsterSquare[nRows][nCols];
-        this.labyrinth = new LabyrinthSquare[nRows][nCols];
+        players = new Player[nRows][nCols];
+        monsters = new Monster[nRows][nCols];
+        labyrinth = new char[nRows][nCols];
         for (int r = 0; r < nRows; r++) {
             for (int c = 0; c < nCols; c++) {
-                this.labyrinth[r][c] = new LabyrinthSquare(r, c, EMPTY_CHAR);
+                labyrinth[r][c] = EMPTY_CHAR;
+                players[r][c] = null;
+                monsters[r][c] = null;
             }
         }
-        this.labyrinth[exitRow][exitCol] = new LabyrinthSquare(exitRow, exitCol, EXIT_CHAR);
+        labyrinth[exitRow][exitCol] = EXIT_CHAR;
     }
 
     public void spreadPlayers(ArrayList<Player> player) {
@@ -54,11 +54,7 @@ public class Labyrinth {
         String salida = "";
         for (int r = 0; r < nRows; r++) {
             for (int c = 0; c < nCols; c++) {
-                if (players[r][c] != null) {
-                    salida += "  " + players[r][c].toString() + "  ";
-                } else {
-                    salida += "  " + labyrinth[r][c].get() + "  ";
-                }
+                salida += "  " + labyrinth[r][c] + "  ";
             }
             salida += "\n";
         }
@@ -67,9 +63,9 @@ public class Labyrinth {
 
     public void addMonster(int row, int col, Monster monster) {
         if (posOK(row, col) && emptyPos(row, col)) {
-            labyrinth[row][col] = new LabyrinthSquare(row, col, MONSTER_CHAR);
-            monsters[row][col] = new MonsterSquare(row, col, monster);
-            monsters[row][col].get().setPos(row, col);
+            labyrinth[row][col] = MONSTER_CHAR;
+            monsters[row][col] = monster;
+            monsters[row][col].setPos(row, col);
         }
     }
 
@@ -94,7 +90,7 @@ public class Labyrinth {
         int col = startCol;
 
         while (posOK(row, col) && (emptyPos(row, col) && (length > 0))) {
-            labyrinth[row][col].set(row, col, BLOCK_CHAR);
+            labyrinth[row][col] = BLOCK_CHAR;
             length -= 1;
             row += incRow;
             col += incCol;
@@ -123,7 +119,7 @@ public class Labyrinth {
     }
 
     private boolean emptyPos(int row, int col) {
-        return (players[row][col] == null) && (labyrinth[row][col].get() == EMPTY_CHAR);
+        return (players[row][col] == null) && (labyrinth[row][col] == EMPTY_CHAR) && (monsters[row][col] == null);
     }
 
     private boolean monsterPos(int row, int col) {
@@ -147,13 +143,13 @@ public class Labyrinth {
     private void updateOldPos(int row, int col) {
         if (posOK(row, col)) {
             if (monsterPos(row, col)) {
-                labyrinth[row][col].set(row, col, MONSTER_CHAR);
+                labyrinth[row][col] = MONSTER_CHAR;
             } else if (exitPos(row, col)) {
-                labyrinth[row][col].set(row, col, EXIT_CHAR);
+                labyrinth[row][col] = EXIT_CHAR;
             } else if (combatPos(row, col)) {
-                labyrinth[row][col].set(row, col, COMBAT_CHAR);
+                labyrinth[row][col] = COMBAT_CHAR;
             } else {
-                labyrinth[row][col].set(row, col, EMPTY_CHAR);
+                labyrinth[row][col] = EMPTY_CHAR;
             }
         }
     }
@@ -197,7 +193,7 @@ public class Labyrinth {
         Monster output = null;
         if (canStepOn(row, col)) {
             if (posOK(oldRow, oldCol)) {
-                Player p = players[oldRow][oldCol].get();
+                Player p = players[oldRow][oldCol];
                 if (p == player) {
                     players[oldRow][oldCol] = null;
                     updateOldPos(oldRow, oldCol);
@@ -206,14 +202,14 @@ public class Labyrinth {
 
             boolean monsterPos = monsterPos(row, col);
             if (monsterPos) {
-                labyrinth[row][col].set(row, col, COMBAT_CHAR);
-                output = monsters[row][col].get();
+                labyrinth[row][col] = COMBAT_CHAR;
+                output = monsters[row][col];
             } else {
                 char number = player.getNumber();
-                labyrinth[row][col].set(row, col, number);
+                labyrinth[row][col] = number;
             }
 
-            players[row][col] = new PlayerSquare(row, col, player);
+            players[row][col] = player;
             player.setPos(row, col);
         }
 

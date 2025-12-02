@@ -1,7 +1,7 @@
 package irrgarten;
 
 public class Monster extends LabyrinthCharacter{
-    static private final int INITIAL_HEALTH = 5;
+    static private final int INITIAL_HEALTH = 100;
 
     public Monster(String name, float intelligence, float strength) {
         super(name, intelligence, strength, INITIAL_HEALTH);

@@ -138,11 +138,11 @@ public class Player extends LabyrinthCharacter {
     }
 
     private Weapon newWeapon() {
-        return new Weapon(Dice.weaponPower(), Dice.usesLeft());
+        return weaponCardDeck.nextCard();
     }
 
     private Shield newShield() {
-        return new Shield(Dice.shieldPower(), Dice.usesLeft());
+        return shieldCardDeck.nextCard();
     }
 
     protected float sumWeapons() {
