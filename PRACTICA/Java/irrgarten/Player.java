@@ -90,7 +90,7 @@ public class Player extends LabyrinthCharacter {
         }
 
         int extraHealth = Dice.healthReward();
-        setHealth(getHealth()+extraHealth);
+        setHealth(getHealth() + extraHealth);
     }
 
     @Override
@@ -103,7 +103,8 @@ public class Player extends LabyrinthCharacter {
         for (int i = 0; i < shields.size(); i++) {
             sString += shields.get(i).toString() + " ";
         }
-        return number + " (HP: " + getHealth() + ", Pos: [" + getRow() + "," + getCol() + "], INT:" + getIntelligence() + ", STR:" + getStrength()
+        return number + " (HP: " + getHealth() + ", Pos: [" + getRow() + "," + getCol() + "], INT:" + getIntelligence()
+                + ", STR:" + getStrength()
                 + ") WEAPONS: " + wString + "SHIELDS: " + sString + "\n";
     }
 

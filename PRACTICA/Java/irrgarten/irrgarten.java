@@ -1,4 +1,5 @@
 package irrgarten;
+
 import irrgarten.controller.Controller;
 import irrgarten.UI.TextUI;
 

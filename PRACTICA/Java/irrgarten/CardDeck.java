@@ -2,21 +2,21 @@ package irrgarten;
 
 import java.util.ArrayList;
 
-public abstract class CardDeck <T>{
+public abstract class CardDeck<T> {
     private ArrayList<T> cardDeck;
 
-    CardDeck(){
+    CardDeck() {
         cardDeck = new ArrayList<>();
     }
 
     protected abstract void addCards();
 
-    protected void addCard(T card){
+    protected void addCard(T card) {
         cardDeck.add(card);
     }
 
-    public T nextCard(){
-        if(cardDeck.isEmpty()){
+    public T nextCard() {
+        if (cardDeck.isEmpty()) {
             addCards();
         }
         T output = cardDeck.get(0);

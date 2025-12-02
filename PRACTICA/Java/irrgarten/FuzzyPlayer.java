@@ -22,7 +22,7 @@ public class FuzzyPlayer extends Player {
     }
 
     @Override
-    public float defensiveEnergy(){
+    public float defensiveEnergy() {
         return sumShields() + Dice.intensity(getIntelligence());
     }
 

@@ -68,7 +68,8 @@ public class Game {
     }
 
     public GameState getGameState() {
-        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex, finished(), log);
+        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex,
+                finished(), log);
     }
 
     private void configureLabyrinth() {

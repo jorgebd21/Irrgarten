@@ -1,6 +1,6 @@
 package irrgarten;
 
-public class Monster extends LabyrinthCharacter{
+public class Monster extends LabyrinthCharacter {
     static private final int INITIAL_HEALTH = 100;
 
     public Monster(String name, float intelligence, float strength) {
