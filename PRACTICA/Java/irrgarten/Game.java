@@ -54,7 +54,7 @@ public class Game {
                 logNoMonster();
             } else {
                 GameCharacter winner = combat(monster);
-                manageReward(winner);
+                manageReward(winner, monster);
             }
 
         } else {
@@ -135,12 +135,19 @@ public class Game {
         return winner;
     }
 
-    private void manageReward(GameCharacter winner) {
+    private void manageReward(GameCharacter winner, Monster monster) {
         if (winner == GameCharacter.PLAYER) {
             currentPlayer.receivedReward();
             logPlayerWon();
+            if(monster.dead()){
+                labyrinth.removeMonster(monster);
+                monsters.remove(monster);
+            }
         } else {
             logMonsterWon();
+            if(currentPlayer.dead()){
+                labyrinth.removePlayer(currentPlayer);
+            }
         }
     }
 

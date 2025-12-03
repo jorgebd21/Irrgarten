@@ -69,6 +69,18 @@ public class Labyrinth {
         }
     }
 
+    public void removeMonster(Monster monster){
+        int row = monster.getRow();
+        int col = monster.getCol();
+        monsters[row][col] = null;
+    }
+
+    public void removePlayer(Player player) {
+        int row = player.getRow();
+        int col = player.getCol();
+        players[row][col] = null;
+    }
+
     public Monster putPlayer(Directions direction, Player player) {
         int oldRow = player.getRow();
         int oldCol = player.getCol();
