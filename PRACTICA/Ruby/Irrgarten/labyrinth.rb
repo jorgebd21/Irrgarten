@@ -55,6 +55,15 @@ class Labyrinth
         end
     end
 
+    def remove_monster(monster)
+        @monsters[monster.get_row][monster.get_col] = nil
+    end
+
+    def remove_player(player)
+        @players[player.get_row][player.get_col] = nil
+        update_old_pos(player.get_row, player.get_col)
+    end
+
     def put_player(direction, player)
         old_row = player.get_row()
         old_col = player.get_col()
@@ -157,22 +166,22 @@ class Labyrinth
 
     def dir_2_pos(row, col, direction)
         new_pos = [row, col]
-        h = 0
-        v = 0
+        d_row = 0
+        d_col = 0
 
         case direction
-        when :up
-            h = -1
-        when :down
-            h = 1
-        when :left
-            v = -1
-        when :right
-            v = 1
+        when Directions::UP
+            d_row = -1
+        when Directions::DOWN
+            d_row = 1
+        when Directions::LEFT
+            d_col = -1
+        when Directions::RIGHT
+            d_col = 1
         end
 
-        next_row = new_pos[0] + h
-        next_col = new_pos[1] + v
+        next_row = new_pos[0] + d_row
+        next_col = new_pos[1] + d_col
 
         if (pos_ok(next_row,next_col) && can_step_on(next_row, next_col))
             new_pos[0] = next_row
@@ -198,7 +207,7 @@ class Labyrinth
                 @labyrinth[row][col] = @@COMBAT_CHAR
                 output = @monsters[row][col]
             else
-                @labyrinth[row][col] = player.get_number().to_s[0]
+                @labyrinth[row][col] = player.get_number().to_s
             end
 
             @players[row][col] = player

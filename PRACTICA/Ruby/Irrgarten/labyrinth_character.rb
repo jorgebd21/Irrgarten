@@ -2,12 +2,12 @@ class Labyrinth_character
   def initialize(name_or_other, intelligence = nil, strength = nil, health = nil)
     if name_or_other.is_a?(Labyrinth_character)
       other = name_or_other
-      @name = other.name
+      @name = other.get_name
       @intelligence = other.intelligence
       @strength = other.strength
       @health = other.health
-      @row = other.row
-      @col = other.col
+      @row = other.get_row
+      @col = other.get_col
     else
       @name = name_or_other
       @intelligence = intelligence
@@ -16,6 +16,10 @@ class Labyrinth_character
       @row = 0
       @col = 0
     end
+  end
+
+  def get_name
+    return @name
   end
 
   def dead

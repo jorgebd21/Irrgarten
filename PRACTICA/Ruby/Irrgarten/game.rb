@@ -145,17 +145,21 @@ class Game
             @current_player.received_reward()
             if(monster.dead())
                 @monsters.delete(monster)
+                @labyrinth.remove_monster(monster)
             end
             log_player_won()
         else
             log_monster_won()
+            if(@current_player.dead())
+                @labyrinth.remove_player(@current_player)
+            end
         end
     end
 
     def manage_resurrection()
         resurrect = Dice.resurrect_player()
         if(resurrect)
-            @current_player = FuzzyPlayer.new(@current_player)
+            @current_player = Fuzzy_player.new(@current_player)
             @players[@current_player_index] = @current_player
             @current_player.resurrect()
             log_resurrected()

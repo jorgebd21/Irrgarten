@@ -9,7 +9,7 @@ class Player < Labyrinth_character
     @@INITIAL_HEALTH = 10
     @@HITS2LOSE = 3
 
-    def initialize(number_or_other, intelligence, strength)
+    def initialize(number_or_other, intelligence = nil, strength = nil)
         if number_or_other.is_a?(Player)
             other = number_or_other
             super(other)
@@ -19,6 +19,7 @@ class Player < Labyrinth_character
             @consecutive_hits = other.consecutive_hits
         else
             super("Player #" + number_or_other.to_s, intelligence, strength, @@INITIAL_HEALTH)
+            @number = number_or_other
             @consecutive_hits = 0
             @weapons = Array.new(@@MAX_WEAPONS)   
             @shields = Array.new(@@MAX_SHIELDS)
