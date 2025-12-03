@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public abstract class CardDeck<T> {
     private ArrayList<T> cardDeck;
+    static protected final int NUM_BARAJA = 10;
 
     public CardDeck() {
         cardDeck = new ArrayList<>();
