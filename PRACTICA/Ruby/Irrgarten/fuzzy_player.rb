@@ -7,14 +7,7 @@ class Fuzzy_player < Player
   end
 
   def move(direction, valid_moves)
-    size = valid_moves.size()
-    contained = valid_moves.include?(direction)
-
-    if((size > 0) && !contained)
-      return Dice.next_step(direction, valid_moves, @intelligence)
-    else
-      return direction
-    end
+    return Dice.next_step(direction, valid_moves, @intelligence)
   end
 
   def attack()

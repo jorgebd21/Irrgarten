@@ -2,10 +2,10 @@ require_relative 'labyrinth_character'
 require_relative 'dice'
 
 class Monster < Labyrinth_character
-    INITIAL_HEALTH = 100
+    INITIAL_HEALTH = 10
 
     def initialize(name, intelligence, strength)
-        super(name, intelligence, strength*10, INITIAL_HEALTH)
+        super(name, intelligence, strength, INITIAL_HEALTH)
         @row = nil
         @col = nil
     end

@@ -69,7 +69,7 @@ public class Dice {
     }
 
     static public Directions nextStep(Directions preferente, ArrayList<Directions> validMoves, float intelligence) {
-        if ((generator.nextFloat() * MAX_INTELLIGENCE) < intelligence) {
+        if (generator.nextFloat() * MAX_INTELLIGENCE < intelligence) {
             return preferente;
         } else {
             int index = generator.nextInt(validMoves.size());

@@ -9,13 +9,7 @@ public class FuzzyPlayer extends Player {
 
     @Override
     public Directions move(Directions direction, ArrayList<Directions> validMoves) {
-        int size = validMoves.size();
-        boolean contained = validMoves.contains(direction);
-        if ((size > 0) && !contained) {
-            return Dice.nextStep(direction, validMoves, getIntelligence());
-        } else {
-            return direction;
-        }
+        return Dice.nextStep(direction, validMoves, getIntelligence());
     }
 
     @Override
