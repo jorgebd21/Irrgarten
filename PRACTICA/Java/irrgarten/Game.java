@@ -58,6 +58,7 @@ public class Game {
             }
 
         } else {
+            labyrinth.removePlayer(currentPlayer);
             manageResurrection();
         }
 
@@ -69,7 +70,8 @@ public class Game {
     }
 
     public GameState getGameState() {
-        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex, finished(), log);
+        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex,
+                finished(), log);
     }
 
     private void configureLabyrinth() {
@@ -139,15 +141,12 @@ public class Game {
         if (winner == GameCharacter.PLAYER) {
             currentPlayer.receivedReward();
             logPlayerWon();
-            if(monster.dead()){
+            if (monster.dead()) {
                 labyrinth.removeMonster(monster);
                 monsters.remove(monster);
             }
         } else {
             logMonsterWon();
-            if(currentPlayer.dead()){
-                labyrinth.removePlayer(currentPlayer);
-            }
         }
     }
 

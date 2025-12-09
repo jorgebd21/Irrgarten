@@ -54,6 +54,7 @@ class Game
                 manage_reward(winner, monster)
             end
         else
+            @labyrinth.remove_player(@current_player)
             manage_resurrection()
         end
 
@@ -150,9 +151,6 @@ class Game
             log_player_won()
         else
             log_monster_won()
-            if(@current_player.dead())
-                @labyrinth.remove_player(@current_player)
-            end
         end
     end
 
