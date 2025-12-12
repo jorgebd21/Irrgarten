@@ -1,13 +1,13 @@
 package irrgarten;
 
-import irrgarten.UI.GraphicalUI;
+import irrgarten.UI.GraphicUI;
 import irrgarten.controller.Controller;
 
 public class irrgarten {
     static public void main(String[] args) {
         
         Game game = new Game(2);
-        GraphicalUI view = new GraphicalUI();
+        GraphicUI view = new GraphicUI();
 
         Controller controller = new Controller(game, view);
         controller.play();
