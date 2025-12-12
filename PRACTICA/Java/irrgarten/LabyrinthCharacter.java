@@ -61,7 +61,7 @@ public abstract class LabyrinthCharacter {
 
     @Override
     public String toString() {
-        return name + " (Int: " + intelligence + ", Str: " + strength + ", Hp: " + health + ")";
+        return name + " (Int: " + intelligence + ", Str: " + strength + ", Hp: " + health + ")\n";
     }
 
     protected void gotWounded() {

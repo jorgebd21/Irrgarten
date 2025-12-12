@@ -70,7 +70,19 @@ public class Game {
     }
 
     public GameState getGameState() {
-        return new GameState(labyrinth.toString(), players.toString(), monsters.toString(), currentPlayerIndex,
+        String playerS = "";
+        for (int i = 0; i < players.size(); i++) {
+            playerS += players.get(i).toString();
+            playerS += "---------------------------------------------------------\n";
+        }
+
+        String monsterS = "";
+        for (int i = 0; i < monsters.size(); i++) {
+            monsterS += monsters.get(i).toString();
+            monsterS += "---------------------------------------------------------\n";
+        }
+
+        return new GameState(labyrinth.toString(), playerS, monsterS, currentPlayerIndex,
                 finished(), log);
     }
 

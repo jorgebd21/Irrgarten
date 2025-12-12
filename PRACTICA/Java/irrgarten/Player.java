@@ -105,7 +105,7 @@ public class Player extends LabyrinthCharacter {
         }
         return number + " (HP: " + getHealth() + ", Pos: [" + getRow() + "," + getCol() + "], INT:" + getIntelligence()
                 + ", STR:" + getStrength()
-                + ") WEAPONS: " + wString + "SHIELDS: " + sString + "\n";
+                + ") \nWEAPONS: " + wString + "\nSHIELDS: " + sString + "\n";
     }
 
     private void receiveWeapon(Weapon w) {
