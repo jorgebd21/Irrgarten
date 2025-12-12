@@ -3,6 +3,7 @@ package irrgarten.controller;
 import irrgarten.Directions;
 import irrgarten.Game;
 import irrgarten.UI.GraphicUI;
+import javax.swing.SwingUtilities;
 
 public class Controller {
 
@@ -17,11 +18,11 @@ public class Controller {
     public void play() {
         boolean endOfGame = false;
         while (!endOfGame) {
-            view.showGame(game.getGameState());
+            SwingUtilities.invokeLater(() -> view.showGame(game.getGameState()));
             Directions direction = view.nextMove();
             endOfGame = game.nextStep(direction);
         }
-        view.showGame(game.getGameState());
+        SwingUtilities.invokeLater(() -> view.showGame(game.getGameState()));
     }
 
 }

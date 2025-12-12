@@ -165,9 +165,10 @@ public class Game {
     private void manageResurrection() {
         boolean resurrect = Dice.resurrectPlayer();
         if (resurrect) {
-            currentPlayer.resurrect();
             currentPlayer = new FuzzyPlayer(currentPlayer);
             players.set(currentPlayerIndex, currentPlayer);
+            labyrinth.removePlayer(currentPlayer);
+            currentPlayer.resurrect();
             logResurrected();
         } else {
             logPlayerSkipTurn();

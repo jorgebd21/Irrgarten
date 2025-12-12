@@ -79,6 +79,7 @@ public class Labyrinth {
         int row = player.getRow();
         int col = player.getCol();
         players[row][col] = null;
+        updateOldPos(row, col);
     }
 
     public Monster putPlayer(Directions direction, Player player) {
