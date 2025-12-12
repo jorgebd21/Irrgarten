@@ -1,11 +1,12 @@
 package irrgarten;
 
-import irrgarten.controller.Controller;
-import irrgarten.UI.TextUI;
+import irrgarten.UI.GUI;
+import irrgarten.controller.Controller; // Importamos la clase GUI
 
 public class irrgarten {
     static public void main(String[] args) {
-        Controller controller = new Controller(new Game(2), new TextUI());
+        // Usa la nueva clase GUI
+        Controller controller = new Controller(new Game(2), new GUI()); 
         controller.play();
     }
 }

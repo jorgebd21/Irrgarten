@@ -2,14 +2,14 @@ package irrgarten.controller;
 
 import irrgarten.Directions;
 import irrgarten.Game;
-import irrgarten.UI.TextUI;
+import irrgarten.UI.GUI;
 
 public class Controller {
 
     private Game game;
-    private TextUI view;
+    private GUI view;
 
-    public Controller(Game game, TextUI view) {
+    public Controller(Game game, GUI view) {
         this.game = game;
         this.view = view;
     }
