@@ -4,7 +4,7 @@ public class Monster extends LabyrinthCharacter {
     static private final int INITIAL_HEALTH = 10;
 
     public Monster(String name, float intelligence, float strength) {
-        super(name, intelligence, strength*100, INITIAL_HEALTH);
+        super(name, intelligence, strength, INITIAL_HEALTH);
     }
 
     @Override
