@@ -2,8 +2,7 @@ package irrgarten.UI;
 
 import irrgarten.Directions;
 
-public class Cursors extends javax.swing.JDialog {
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Cursors.class.getName());
+public class Cursors extends javax.swing.JDialog {;
     private Directions direction;
 
     public Cursors(java.awt.Frame parent, boolean modal) {

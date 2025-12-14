@@ -18,11 +18,11 @@ public class Controller {
     public void play() {
         boolean endOfGame = false;
         while (!endOfGame) {
-            SwingUtilities.invokeLater(() -> view.showGame(game.getGameState()));
+            view.showGame(game.getGameState());
             Directions direction = view.nextMove();
             endOfGame = game.nextStep(direction);
         }
-        SwingUtilities.invokeLater(() -> view.showGame(game.getGameState()));
+        view.showGame(game.getGameState());
     }
 
 }
